@@ -172,6 +172,18 @@
   padding: 2px 0;
 }
 
+.sky-booking__section-label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--sky-text-muted);
+  padding: 8px 0 4px;
+  margin-top: 8px;
+  border-top: 1px dashed var(--sky-border);
+}
+.sky-booking__section-label:first-of-type { border-top: none; margin-top: 0; }
+
 .sky-booking__seat-row--header { margin-bottom: 4px; }
 .sky-booking__seat-row--business { background: rgba(0,102,204,0.04); border-radius: var(--sky-radius-sm); }
 .sky-booking__seat-row--extra { background: rgba(245,158,11,0.04); border-radius: var(--sky-radius-sm); }

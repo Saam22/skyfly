@@ -245,31 +245,49 @@ export default function Booking() {
                         <span key={i} className={`sky-booking__seat-letter ${l === '' ? 'sky-booking__aisle' : ''}`}>{l}</span>
                       ))}
                     </div>
-                    {seatMap.slice(0, 20).map(({ row, seats }) => (
-                      <div key={row} className={`sky-booking__seat-row ${seats[0].type === 'business' ? 'sky-booking__seat-row--business' : seats[0].type === 'extra-legroom' ? 'sky-booking__seat-row--extra' : ''}`}>
-                        <span className="sky-booking__row-num">{row}</span>
-                        {seats.slice(0, 3).map(seat => (
-                          <button
-                            key={seat.id}
-                            id={`seat-${seat.id}`}
-                            className={`sky-booking__seat sky-booking__seat--${selectedSeatsLocal.includes(seat.id) ? 'selected' : seat.status === 'occupied' ? 'occupied' : seat.type === 'business' ? 'business-seat' : seat.type === 'extra-legroom' ? 'extra-legroom-seat' : 'available'}`}
-                            disabled={seat.status === 'occupied'}
-                            onClick={() => toggleSeat(seat.id)}
-                            title={`${seat.id}${seat.price > 0 ? ` +${seat.price}` : ''}`}
-                          />
-                        ))}
-                        <span className="sky-booking__aisle" />
-                        {seats.slice(3).map(seat => (
-                          <button
-                            key={seat.id}
-                            id={`seat-${seat.id}`}
-                            className={`sky-booking__seat sky-booking__seat--${selectedSeatsLocal.includes(seat.id) ? 'selected' : seat.status === 'occupied' ? 'occupied' : seat.type === 'business' ? 'business-seat' : seat.type === 'extra-legroom' ? 'extra-legroom-seat' : 'available'}`}
-                            disabled={seat.status === 'occupied'}
-                            onClick={() => toggleSeat(seat.id)}
-                          />
-                        ))}
-                      </div>
-                    ))}
+                    {(() => {
+                      const rendered = [];
+                      let lastType = null;
+                      seatMap.slice(0, 20).forEach(({ row, seats }) => {
+                        const type = seats[0].type;
+                        if (type !== lastType) {
+                          const label = type === 'business' ? (ar ? 'درجة الأعمال' : 'Business Class')
+                            : type === 'extra-legroom' ? (ar ? 'مساحة إضافية للأرجل' : 'Extra Legroom')
+                            : (ar ? 'الدرجة السياحية' : 'Economy Class');
+                          rendered.push(
+                            <div key={`label-${row}`} className="sky-booking__section-label">{label}</div>
+                          );
+                          lastType = type;
+                        }
+                        rendered.push(
+                          <div key={row} className={`sky-booking__seat-row ${type === 'business' ? 'sky-booking__seat-row--business' : type === 'extra-legroom' ? 'sky-booking__seat-row--extra' : ''}`}>
+                            <span className="sky-booking__row-num">{row}</span>
+                            {seats.slice(0, 3).map(seat => (
+                              <button
+                                key={seat.id}
+                                id={`seat-${seat.id}`}
+                                className={`sky-booking__seat sky-booking__seat--${selectedSeatsLocal.includes(seat.id) ? 'selected' : seat.status === 'occupied' ? 'occupied' : type === 'business' ? 'business-seat' : type === 'extra-legroom' ? 'extra-legroom-seat' : 'available'}`}
+                                disabled={seat.status === 'occupied'}
+                                onClick={() => toggleSeat(seat.id)}
+                                title={`${seat.id}${seat.price > 0 ? ` +${seat.price} EGP` : ''}${seat.status === 'occupied' ? ` (${ar ? 'محجوز' : 'Occupied'})` : ''}`}
+                              />
+                            ))}
+                            <span className="sky-booking__aisle" />
+                            {seats.slice(3).map(seat => (
+                              <button
+                                key={seat.id}
+                                id={`seat-${seat.id}`}
+                                className={`sky-booking__seat sky-booking__seat--${selectedSeatsLocal.includes(seat.id) ? 'selected' : seat.status === 'occupied' ? 'occupied' : type === 'business' ? 'business-seat' : type === 'extra-legroom' ? 'extra-legroom-seat' : 'available'}`}
+                                disabled={seat.status === 'occupied'}
+                                onClick={() => toggleSeat(seat.id)}
+                                title={`${seat.id}${seat.price > 0 ? ` +${seat.price} EGP` : ''}${seat.status === 'occupied' ? ` (${ar ? 'محجوز' : 'Occupied'})` : ''}`}
+                              />
+                            ))}
+                          </div>
+                        );
+                      });
+                      return rendered;
+                    })()}
                   </div>
                 </div>
                 {selectedSeatsLocal.length > 0 && (
@@ -326,6 +344,9 @@ export default function Booking() {
                     { key: 'apple', label: ar ? '🍎 Apple Pay' : '🍎 Apple Pay' },
                     { key: 'stc', label: ar ? '📱 STC Pay' : '📱 STC Pay' },
                     { key: 'mada', label: ar ? '💳 مدى' : '💳 Mada' },
+                    { key: 'meeza', label: ar ? '💳 ميزة' : '💳 Meeza' },
+                    { key: 'valu', label: ar ? '🟣 ValU' : '🟣 ValU' },
+                    { key: 'fawry', label: ar ? '🧡 فوري' : '🧡 Fawry' },
                   ].map(m => (
                     <button
                       key={m.key}
@@ -382,8 +403,13 @@ export default function Booking() {
 
                 {payment.method !== 'card' && (
                   <div className="sky-booking__pay-redirect sky-animate-fade">
-                    <span style={{ fontSize: '3rem' }}>{payment.method === 'apple' ? '🍎' : payment.method === 'stc' ? '📱' : '💳'}</span>
+                    <span style={{ fontSize: '3rem' }}>
+                      {payment.method === 'apple' ? '🍎' : payment.method === 'stc' ? '📱' : payment.method === 'mada' ? '💳' : payment.method === 'meeza' ? '💚' : payment.method === 'valu' ? '🟣' : '🧡'}
+                    </span>
                     <p>{ar ? 'سيتم توجيهك لإتمام الدفع عند الضغط على "ادفع الآن"' : "You'll be redirected to complete payment when you click 'Pay Now'"}</p>
+                    {payment.method === 'meeza' && <p className="sky-text-muted" style={{ fontSize: '0.85rem' }}>{ar ? 'ميزة – شبكة الدفع الوطنية المصرية' : 'Meeza – Egyptian National Payment Network'}</p>}
+                    {payment.method === 'valu' && <p className="sky-text-muted" style={{ fontSize: '0.85rem' }}>{ar ? 'ValU – تقسيط مريح بدون فوائد' : 'ValU – Flexible installment plan'}</p>}
+                    {payment.method === 'fawry' && <p className="sky-text-muted" style={{ fontSize: '0.85rem' }}>{ar ? 'فوري – ادفع نقداً في أي منفذ فوري' : 'Fawry – Pay cash at any Fawry outlet'}</p>}
                   </div>
                 )}
 

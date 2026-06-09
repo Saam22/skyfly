@@ -4,7 +4,7 @@ import { useBooking } from '../../context/BookingContext';
 import './MyTrips.css';
 
 export default function MyTrips() {
-  const { trips, cancelTrip, lang } = useBooking();
+  const { trips, lang, cancelTrip, modifyTrip } = useBooking();
   const navigate = useNavigate();
   const ar = lang === 'ar';
 
@@ -12,6 +12,9 @@ export default function MyTrips() {
   const [selectedTrip, setSelectedTrip] = useState(null);
   const [cancelConfirm, setCancelConfirm] = useState(null);
   const [showBoardingPass, setShowBoardingPass] = useState(null);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [modifyModal, setModifyModal] = useState(null);
+  const [modifyExtras, setModifyExtras] = useState({ insurance: false, meal: false, extraBaggage: false });
 
   useEffect(() => {
     document.title = ar ? 'SkyFly - رحلاتي' : 'SkyFly - My Trips';
@@ -66,35 +69,57 @@ export default function MyTrips() {
         </div>
 
         {/* Tabs */}
-        <div className="sky-mytrips__tabs">
-          {TABS.map(t => (
-            <button
-              key={t.key}
-              id={`trips-tab-${t.key}`}
-              className={`sky-mytrips__tab ${activeTab === t.key ? 'sky-mytrips__tab--active' : ''}`}
-              onClick={() => setActiveTab(t.key)}
-            >
-              {ar ? t.ar : t.en}
-              {t.count > 0 && <span className="sky-navbar__badge">{t.count}</span>}
-            </button>
-          ))}
+        <div className="sky-mytrips__tabs-row">
+          <div className="sky-mytrips__tabs">
+            {TABS.map(t => (
+              <button
+                key={t.key}
+                id={`trips-tab-${t.key}`}
+                className={`sky-mytrips__tab ${activeTab === t.key ? 'sky-mytrips__tab--active' : ''}`}
+                onClick={() => setActiveTab(t.key)}
+              >
+                {ar ? t.ar : t.en}
+                {t.count > 0 && <span className="sky-navbar__badge">{t.count}</span>}
+              </button>
+            ))}
+          </div>
+          <div className="sky-mytrips__search">
+            <input
+              className="sky-input"
+              type="text"
+              placeholder={ar ? '🔍 ابحث عن رحلة...' : '🔍 Search trips...'}
+              value={searchQuery}
+              onChange={e => setSearchQuery(e.target.value)}
+            />
+          </div>
         </div>
 
         {/* Trips List */}
         <div className="sky-mytrips__list">
-          {displayTrips.length === 0 ? (
-            <div className="sky-mytrips__empty">
-              <span>✈️</span>
-              <h3>{ar ? 'لا توجد رحلات' : 'No trips found'}</h3>
-              <p>{ar ? 'لم تقم بأي حجوزات بعد في هذه الفئة' : "You haven't made any bookings in this category"}</p>
-              {activeTab === 'upcoming' && (
-                <button className="sky-btn sky-btn-primary" onClick={() => navigate('/search')}>
-                  {ar ? '🔍 ابحث عن رحلة' : '🔍 Find a Flight'}
-                </button>
-              )}
-            </div>
-          ) : (
-            displayTrips.map(trip => (
+          {(() => {
+            const filtered = displayTrips.filter(t => {
+              if (!searchQuery) return true;
+              const q = searchQuery.toLowerCase();
+              return (t.bookingRef?.toLowerCase() || '').includes(q)
+                || (t.flight?.from?.city || '').toLowerCase().includes(q)
+                || (t.flight?.to?.city || '').toLowerCase().includes(q)
+                || (t.flight?.flightNumber || '').toLowerCase().includes(q);
+            });
+            if (filtered.length === 0) {
+              return (
+                <div className="sky-mytrips__empty">
+                  <span>✈️</span>
+                  <h3>{ar ? 'لا توجد رحلات' : 'No trips found'}</h3>
+                  <p>{ar ? 'لم تقم بأي حجوزات بعد في هذه الفئة' : "You haven't made any bookings in this category"}</p>
+                  {activeTab === 'upcoming' && (
+                    <button className="sky-btn sky-btn-primary" onClick={() => navigate('/search')}>
+                      {ar ? '🔍 ابحث عن رحلة' : '🔍 Find a Flight'}
+                    </button>
+                  )}
+                </div>
+              );
+            }
+            return filtered.map(trip => (
               <article key={trip.id} className={`sky-mytrips__trip-card sky-card ${activeTab === 'cancelled' ? 'sky-mytrips__trip-card--cancelled' : ''}`} id={`trip-${trip.id}`}>
                 <div className="sky-mytrips__trip-header">
                   <div className="sky-mytrips__trip-ref">
@@ -186,7 +211,7 @@ export default function MyTrips() {
                     </button>
                     {activeTab === 'upcoming' && (
                       <>
-                        <button className="sky-btn sky-btn-outline sky-btn-sm">
+                        <button className="sky-btn sky-btn-outline sky-btn-sm" onClick={() => { setModifyModal(trip); setModifyExtras(trip.extras || { insurance: false, meal: false, extraBaggage: false }); }}>
                           ✏️ {ar ? 'تعديل' : 'Modify'}
                         </button>
                         <button
@@ -202,8 +227,8 @@ export default function MyTrips() {
                   </div>
                 )}
               </article>
-            ))
-          )}
+            ));
+          })()}
         </div>
       </div>
 
@@ -217,6 +242,41 @@ export default function MyTrips() {
               <button className="sky-btn sky-btn-ghost" onClick={() => setCancelConfirm(null)}>{ar ? 'تراجع' : 'Go Back'}</button>
               <button id="confirm-cancel-btn" className="sky-btn" style={{ background: 'var(--sky-danger)', color: 'white' }} onClick={() => handleCancel(cancelConfirm)}>
                 {ar ? 'نعم، إلغاء الحجز' : 'Yes, Cancel Booking'}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Modify Trip Modal */}
+      {modifyModal && (
+        <div className="sky-modal-overlay" onClick={() => setModifyModal(null)}>
+          <div className="sky-modal sky-modal--wide" onClick={e => e.stopPropagation()}>
+            <h3 className="sky-h4">✏️ {ar ? 'تعديل الحجز' : 'Modify Booking'}</h3>
+            <p className="sky-text-muted" style={{ marginBottom: 16 }}>{ar ? 'تعديل الخدمات الإضافية للحجز' : 'Modify add-on services for your booking'}</p>
+            <p><strong>{ar ? 'رقم الحجز' : 'Booking Ref'}:</strong> {modifyModal.bookingRef}</p>
+
+            <div style={{ margin: '16px 0', display: 'flex', flexDirection: 'column', gap: 12 }}>
+              {[
+                { key: 'insurance', icon: '🛡️', title: ar ? 'تأمين السفر' : 'Travel Insurance', price: 120 },
+                { key: 'meal', icon: '🍽️', title: ar ? 'وجبة مميزة' : 'Premium Meal', price: 45 },
+                { key: 'extraBaggage', icon: '🧳', title: ar ? 'أمتعة إضافية' : 'Extra Baggage', price: 150 },
+              ].map(extra => (
+                <label key={extra.key} className="sky-booking__extra-card" style={{ display: 'flex', alignItems: 'center', gap: 16, cursor: 'pointer' }}>
+                  <input type="checkbox" checked={modifyExtras[extra.key]} onChange={() => setModifyExtras(prev => ({ ...prev, [extra.key]: !prev[extra.key] }))} />
+                  <span style={{ fontSize: '1.5rem' }}>{extra.icon}</span>
+                  <div style={{ flex: 1 }}>
+                    <strong>{extra.title}</strong>
+                    <p className="sky-text-muted" style={{ fontSize: '0.85rem' }}>+{extra.price} {ar ? 'ج.م' : 'EGP'}</p>
+                  </div>
+                </label>
+              ))}
+            </div>
+
+            <div className="sky-modal-actions">
+              <button className="sky-btn sky-btn-ghost" onClick={() => setModifyModal(null)}>{ar ? 'إلغاء' : 'Cancel'}</button>
+              <button className="sky-btn sky-btn-primary" onClick={() => { modifyTrip(modifyModal.id, { extras: modifyExtras }); setModifyModal(null); }}>
+                💾 {ar ? 'حفظ التعديلات' : 'Save Changes'}
               </button>
             </div>
           </div>

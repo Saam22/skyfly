@@ -1,0 +1,172 @@
+.sky-account { padding-bottom: var(--sky-space-16); }
+
+.sky-account__header {
+  display: flex;
+  align-items: center;
+  gap: var(--sky-space-5);
+  padding: var(--sky-space-6) var(--sky-space-8);
+  margin-bottom: var(--sky-space-6);
+  flex-wrap: wrap;
+}
+
+.sky-account__avatar {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: var(--sky-gradient-accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  color: white;
+  flex-shrink: 0;
+}
+
+.sky-account__info { flex: 1; }
+.sky-account__info p { margin: 4px 0; }
+
+.sky-account__tabs {
+  display: flex;
+  gap: var(--sky-space-2);
+  margin-bottom: var(--sky-space-6);
+  flex-wrap: wrap;
+}
+
+.sky-account__tab {
+  padding: 10px 20px;
+  border-radius: var(--sky-radius-md);
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--sky-text-secondary);
+  background: var(--sky-bg-card);
+  border: 1.5px solid var(--sky-border);
+  cursor: pointer;
+  transition: all var(--sky-transition-fast);
+  font-family: var(--sky-font);
+}
+
+.sky-account__tab--active {
+  border-color: var(--sky-primary);
+  background: var(--sky-primary-100);
+  color: var(--sky-primary);
+}
+
+.sky-account__panel {
+  padding: var(--sky-space-6) var(--sky-space-8);
+  border-radius: var(--sky-radius-xl);
+}
+
+.sky-account__panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--sky-space-5);
+  padding-bottom: var(--sky-space-4);
+  border-bottom: 1px solid var(--sky-border);
+}
+
+.sky-account__profile-form {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--sky-space-4);
+  margin-bottom: var(--sky-space-5);
+}
+
+.sky-account__field { display: flex; flex-direction: column; gap: 6px; }
+.sky-account__field label { font-size: 0.8rem; font-weight: 700; color: var(--sky-text-secondary); }
+
+.sky-account__empty {
+  text-align: center;
+  padding: var(--sky-space-10);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--sky-space-3);
+}
+
+.sky-account__empty span { font-size: 3rem; }
+.sky-account__empty p { color: var(--sky-text-secondary); }
+
+.sky-account__pax-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sky-space-3);
+}
+
+.sky-account__pax-card {
+  display: flex;
+  align-items: center;
+  gap: var(--sky-space-3);
+  padding: var(--sky-space-4);
+  background: var(--sky-bg-secondary);
+  border-radius: var(--sky-radius-lg);
+}
+
+.sky-account__pax-avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--sky-primary-100);
+  color: var(--sky-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 1.1rem;
+  flex-shrink: 0;
+}
+
+.sky-account__pax-card div { flex: 1; }
+.sky-account__pax-card strong { font-size: 0.9375rem; }
+
+.sky-account__wishlist-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: var(--sky-space-3);
+}
+
+.sky-account__wishlist-item {
+  padding: var(--sky-space-4);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  border-radius: var(--sky-radius-lg);
+}
+
+.sky-account__wishlist-code {
+  font-weight: 700;
+  color: var(--sky-primary);
+}
+
+.sky-account__wishlist-remove {
+  background: none;
+  border: none;
+  font-size: 1.25rem;
+  cursor: pointer;
+  transition: transform var(--sky-transition-fast);
+}
+
+.sky-account__wishlist-remove:hover { transform: scale(1.2); }
+
+.sky-account__stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--sky-space-4);
+}
+
+.sky-account__stat-card {
+  padding: var(--sky-space-6);
+  text-align: center;
+  border-radius: var(--sky-radius-lg);
+}
+
+.sky-account__stat-icon { font-size: 2rem; display: block; margin-bottom: var(--sky-space-2); }
+.sky-account__stat-value { font-size: 1.5rem; font-weight: 800; color: var(--sky-primary); display: block; }
+.sky-account__stat-label { font-size: 0.85rem; color: var(--sky-text-muted); }
+
+@media (max-width: 768px) {
+  .sky-account__profile-form { grid-template-columns: 1fr; }
+  .sky-account__stats-grid { grid-template-columns: repeat(2, 1fr); }
+  .sky-account__header { flex-direction: column; text-align: center; }
+}

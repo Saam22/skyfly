@@ -1,12 +1,14 @@
 import { useState, useRef, useEffect } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useBooking } from '../../context/BookingContext';
+import AuthModal from '../AuthModal/AuthModal';
 import './Navbar.css';
 
 export default function Navbar() {
-  const { theme, toggleTheme, lang, toggleLang, trips } = useBooking();
+  const { theme, toggleTheme, lang, toggleLang, trips, user } = useBooking();
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [showAuth, setShowAuth] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
   const navRef = useRef(null);
@@ -29,11 +31,13 @@ export default function Navbar() {
         { label: 'الرئيسية', path: '/' },
         { label: 'البحث', path: '/search' },
         { label: 'رحلاتي', path: '/my-trips', badge: confirmedTrips },
+        ...(user ? [{ label: 'حسابي', path: '/account' }] : []),
       ]
     : [
         { label: 'Home', path: '/' },
         { label: 'Search', path: '/search' },
         { label: 'My Trips', path: '/my-trips', badge: confirmedTrips },
+        ...(user ? [{ label: 'Account', path: '/account' }] : []),
       ];
 
   const egyptianFlag = '🇪🇬';
@@ -91,6 +95,16 @@ export default function Navbar() {
             {theme === 'dark' ? '☀️' : '🌙'}
           </button>
 
+          {user ? (
+            <button className="sky-navbar__action-btn" id="nav-avatar" onClick={() => navigate('/account')} title={user.name}>
+              <span className="sky-navbar__avatar">{user.name?.charAt(0) || '👤'}</span>
+            </button>
+          ) : (
+            <button id="nav-login" className="sky-btn sky-btn-outline sky-btn-sm sky-hide-mobile" onClick={() => setShowAuth(true)}>
+              👤 {lang === 'ar' ? 'دخول' : 'Login'}
+            </button>
+          )}
+
           <button
             id="nav-book-cta"
             className="sky-btn sky-btn-primary sky-btn-sm sky-hide-mobile"
@@ -109,6 +123,8 @@ export default function Navbar() {
             <span /><span /><span />
           </button>
         </div>
+
+        {showAuth && <AuthModal onClose={() => setShowAuth(false)} />}
       </div>
 
       <div className={`sky-navbar__mobile-menu ${menuOpen ? 'sky-navbar__mobile-menu--open' : ''}`}>

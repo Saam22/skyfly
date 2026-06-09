@@ -272,6 +272,19 @@
   color: var(--sky-text-muted);
 }
 
+.sky-navbar__avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--sky-gradient-accent);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
+  font-weight: 800;
+}
+
 @media (max-width: 768px) {
   .sky-navbar__hamburger { display: flex; }
   .sky-navbar__mobile-menu { display: flex; }

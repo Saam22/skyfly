@@ -307,6 +307,21 @@
   opacity: 0.6;
 }
 
+/* Tabs row with search */
+.sky-mytrips__tabs-row {
+  display: flex;
+  align-items: center;
+  gap: var(--sky-space-4);
+  margin-bottom: var(--sky-space-6);
+  flex-wrap: wrap;
+}
+
+.sky-mytrips__search { flex: 1; min-width: 200px; }
+.sky-mytrips__search input { width: 100%; }
+
+/* Wide modal */
+.sky-modal--wide { max-width: 560px; }
+
 /* Responsive */
 @media (max-width: 1024px) {
   .sky-mytrips__stats { grid-template-columns: repeat(2, 1fr); }

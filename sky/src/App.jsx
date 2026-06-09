@@ -8,6 +8,7 @@ import SearchResults from './pages/SearchResults/SearchResults'
 import FlightDetails from './pages/FlightDetails/FlightDetails'
 import Booking from './pages/Booking/Booking'
 import MyTrips from './pages/MyTrips/MyTrips'
+import Account from './pages/Account/Account'
 import './App.css'
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
           <Route path="/flight/:id" element={<FlightDetails />} />
           <Route path="/booking" element={<Booking />} />
           <Route path="/my-trips" element={<MyTrips />} />
+          <Route path="/account" element={<Account />} />
         </Routes>
       </main>
       <Footer />
