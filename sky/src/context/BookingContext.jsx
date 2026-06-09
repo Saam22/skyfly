@@ -28,13 +28,22 @@ export function BookingProvider({ children }) {
         returnFlight: null,
         passengers: [],
         selectedSeats: [],
+        seatMap: null,
         extras: { insurance: false, meal: false, extraBaggage: false },
         totalPrice: 0,
         bookingRef: null,
         status: null,
       };
-    } catch { return { flight: null, returnFlight: null, passengers: [], selectedSeats: [], extras: {}, totalPrice: 0, bookingRef: null, status: null }; }
+    } catch { return { flight: null, returnFlight: null, passengers: [], selectedSeats: [], seatMap: null, extras: {}, totalPrice: 0, bookingRef: null, status: null }; }
   });
+
+  const loadSeatMap = (flight) => {
+    const airline = getAirline(flight.airlineCode);
+    setBooking(prev => ({
+      ...prev,
+      seatMap: airline?.seatMap || null
+    }));
+  };
 
   const [trips, setTrips] = useState(() => {
     try {
@@ -110,7 +119,7 @@ export function BookingProvider({ children }) {
       theme, toggleTheme,
       lang, toggleLang,
       searchParams, setSearchParams,
-      booking, selectFlight, setPassengers, setSelectedSeats, setExtras, confirmBooking, clearBooking,
+      booking, selectFlight, loadSeatMap, setPassengers, setSelectedSeats, setExtras, confirmBooking, clearBooking,
       trips, cancelTrip,
     }}>
       {children}

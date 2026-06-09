@@ -8,6 +8,18 @@ export const airlines = [
     rating: 4.6,
     country: 'مصر',
     countryEn: 'Egypt',
+    seatMap: {
+      rows: 30,
+      cols: 6,
+      layout: [
+        ['A', 'B', '', 'C', 'D'],
+        ['A', 'B', '', 'C', 'D'],
+        ['A', 'B', '', 'C', 'D']
+      ],
+      premiumRows: [1, 2, 3],
+      emergencyRows: [15, 16],
+      blockedSeats: ['1A', '1D', '15B', '15C']
+    }
   },
   {
     code: 'SM',
