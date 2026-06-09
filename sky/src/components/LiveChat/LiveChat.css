@@ -1,0 +1,188 @@
+.sky-chat-btn {
+  position: fixed;
+  bottom: 24px;
+  inset-inline-end: 24px;
+  z-index: var(--sky-z-toast);
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: var(--sky-gradient-accent);
+  color: white;
+  font-size: 1.5rem;
+  border: none;
+  box-shadow: var(--sky-shadow-accent);
+  cursor: pointer;
+  transition: all var(--sky-transition);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sky-chat-btn:hover {
+  transform: scale(1.1);
+  box-shadow: 0 12px 32px rgba(255, 102, 0, 0.5);
+}
+
+.sky-chat-btn--open {
+  background: var(--sky-danger);
+  box-shadow: 0 4px 16px rgba(239, 68, 68, 0.4);
+}
+
+.sky-chat-window {
+  position: fixed;
+  bottom: 92px;
+  inset-inline-end: 24px;
+  width: 360px;
+  height: 500px;
+  max-height: calc(100vh - 140px);
+  background: var(--sky-bg-card);
+  border: 1px solid var(--sky-border);
+  border-radius: var(--sky-radius-xl);
+  box-shadow: var(--sky-shadow-xl);
+  z-index: var(--sky-z-toast);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  animation: fadeIn 0.2s ease;
+}
+
+.sky-chat-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--sky-space-4) var(--sky-space-5);
+  background: var(--sky-gradient-hero);
+  color: white;
+}
+
+.sky-chat-header-info {
+  display: flex;
+  align-items: center;
+  gap: var(--sky-space-3);
+}
+
+.sky-chat-header-info strong { display: block; font-size: 0.9375rem; }
+.sky-chat-header-info small { font-size: 0.75rem; opacity: 0.8; }
+
+.sky-chat-status {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.75rem;
+}
+
+.sky-chat-status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--sky-success);
+  animation: pulse-glow 2s infinite;
+}
+
+.sky-chat-messages {
+  flex: 1;
+  overflow-y: auto;
+  padding: var(--sky-space-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--sky-space-3);
+}
+
+.sky-chat-msg {
+  max-width: 80%;
+  padding: 10px 14px;
+  border-radius: var(--sky-radius-lg);
+  font-size: 0.875rem;
+  line-height: 1.5;
+  animation: fadeIn 0.2s ease;
+}
+
+.sky-chat-msg--user {
+  align-self: flex-end;
+  background: var(--sky-primary);
+  color: white;
+  border-end-end-radius: 4px;
+}
+
+.sky-chat-msg--bot {
+  align-self: flex-start;
+  background: var(--sky-bg-secondary);
+  color: var(--sky-text);
+  border-end-start-radius: 4px;
+}
+
+.sky-chat-typing {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+  padding: 12px 16px;
+}
+
+.sky-chat-typing-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--sky-text-muted);
+  animation: chatTyping 1.2s ease-in-out infinite;
+}
+
+.sky-chat-typing-dot:nth-child(2) { animation-delay: 0.2s; }
+.sky-chat-typing-dot:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes chatTyping {
+  0%, 60%, 100% { opacity: 0.3; transform: translateY(0); }
+  30% { opacity: 1; transform: translateY(-4px); }
+}
+
+.sky-chat-input-wrap {
+  display: flex;
+  align-items: center;
+  gap: var(--sky-space-2);
+  padding: var(--sky-space-3) var(--sky-space-4);
+  border-top: 1px solid var(--sky-border);
+}
+
+.sky-chat-input {
+  flex: 1;
+  padding: 10px 14px;
+  border: 1.5px solid var(--sky-border);
+  border-radius: var(--sky-radius-lg);
+  font-size: 0.875rem;
+  font-family: var(--sky-font);
+  background: var(--sky-bg);
+  color: var(--sky-text);
+  outline: none;
+  transition: border-color var(--sky-transition-fast);
+}
+
+.sky-chat-input:focus { border-color: var(--sky-primary); }
+
+.sky-chat-input::placeholder { color: var(--sky-text-muted); }
+
+.sky-chat-send {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--sky-primary);
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: all var(--sky-transition-fast);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.sky-chat-send:hover { background: var(--sky-primary-light); }
+.sky-chat-send:disabled { opacity: 0.4; cursor: default; }
+
+@media (max-width: 480px) {
+  .sky-chat-window {
+    inset-inline-end: 8px;
+    bottom: 80px;
+    width: calc(100vw - 16px);
+    max-height: calc(100vh - 120px);
+  }
+}

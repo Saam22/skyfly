@@ -1,0 +1,503 @@
+.sky-booking { padding-bottom: var(--sky-space-16); }
+
+/* Steps */
+.sky-booking__steps {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  margin-bottom: var(--sky-space-8);
+  padding: var(--sky-space-6) 0;
+}
+
+.sky-booking__step {
+  display: flex;
+  align-items: center;
+  gap: var(--sky-space-2);
+  color: var(--sky-text-muted);
+  font-size: 0.875rem;
+  font-weight: 500;
+  position: relative;
+}
+
+.sky-booking__step-circle {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 2px solid var(--sky-border);
+  background: var(--sky-bg-card);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.875rem;
+  font-weight: 700;
+  flex-shrink: 0;
+  transition: all var(--sky-transition);
+}
+
+.sky-booking__step--active .sky-booking__step-circle {
+  background: var(--sky-primary);
+  border-color: var(--sky-primary);
+  color: white;
+  box-shadow: 0 0 0 4px var(--sky-primary-100);
+}
+
+.sky-booking__step--done .sky-booking__step-circle {
+  background: var(--sky-success);
+  border-color: var(--sky-success);
+  color: white;
+}
+
+.sky-booking__step--active { color: var(--sky-primary); }
+.sky-booking__step--done { color: var(--sky-success); }
+
+.sky-booking__step-line {
+  width: 60px;
+  height: 2px;
+  background: var(--sky-border);
+  margin: 0 var(--sky-space-2);
+}
+
+.sky-booking__step--done + .sky-booking__step .sky-booking__step-line,
+.sky-booking__step--done .sky-booking__step-line {
+  background: var(--sky-success);
+}
+
+/* Body */
+.sky-booking__body {
+  display: grid;
+  grid-template-columns: 1fr 320px;
+  gap: var(--sky-space-6);
+  align-items: start;
+}
+
+/* Panel */
+.sky-booking__panel {
+  background: var(--sky-bg-card);
+  border: 1px solid var(--sky-border);
+  border-radius: var(--sky-radius-xl);
+  padding: var(--sky-space-8);
+}
+
+.sky-booking__panel h2 { margin-bottom: var(--sky-space-6); }
+
+/* Passenger Card */
+.sky-booking__passenger-card {
+  border: 1.5px solid var(--sky-border);
+  border-radius: var(--sky-radius-lg);
+  padding: var(--sky-space-5);
+  margin-bottom: var(--sky-space-5);
+}
+
+.sky-booking__pax-title {
+  display: flex;
+  align-items: center;
+  gap: var(--sky-space-3);
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: var(--sky-space-4);
+  padding-bottom: var(--sky-space-4);
+  border-bottom: 1px solid var(--sky-border);
+}
+
+.sky-booking__form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--sky-space-4);
+}
+
+.sky-booking__form-field { display: flex; flex-direction: column; gap: 6px; }
+.sky-booking__form-field label { font-size: 0.8125rem; font-weight: 600; color: var(--sky-text-secondary); }
+
+.sky-input--error { border-color: var(--sky-danger) !important; box-shadow: 0 0 0 3px rgba(239,68,68,0.1); }
+
+.sky-booking__gender-btns { display: flex; gap: var(--sky-space-2); }
+.sky-booking__gender-btn {
+  flex: 1;
+  padding: 10px;
+  border: 1.5px solid var(--sky-border);
+  border-radius: var(--sky-radius-md);
+  background: var(--sky-bg);
+  cursor: pointer;
+  font-family: var(--sky-font);
+  font-size: 0.875rem;
+  transition: all var(--sky-transition-fast);
+  color: var(--sky-text-secondary);
+}
+.sky-booking__gender-btn--active { border-color: var(--sky-primary); background: var(--sky-primary-100); color: var(--sky-primary); font-weight: 600; }
+
+/* SEAT MAP */
+.sky-booking__seat-legend {
+  display: flex;
+  gap: var(--sky-space-4);
+  flex-wrap: wrap;
+  margin-bottom: var(--sky-space-5);
+}
+
+.sky-booking__seat-legend-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.8rem;
+  color: var(--sky-text-secondary);
+}
+
+.sky-booking__aircraft {
+  overflow-x: auto;
+  padding-bottom: var(--sky-space-3);
+}
+
+.sky-booking__aircraft-nose {
+  width: 120px;
+  height: 40px;
+  background: linear-gradient(90deg, var(--sky-bg-secondary), var(--sky-primary-100));
+  border-radius: 60px 60px 0 0;
+  margin: 0 auto var(--sky-space-3);
+  opacity: 0.6;
+}
+
+.sky-booking__seat-map {
+  min-width: 340px;
+  max-width: 480px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.sky-booking__seat-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 2px 0;
+}
+
+.sky-booking__seat-row--header { margin-bottom: 4px; }
+.sky-booking__seat-row--business { background: rgba(0,102,204,0.04); border-radius: var(--sky-radius-sm); }
+.sky-booking__seat-row--extra { background: rgba(245,158,11,0.04); border-radius: var(--sky-radius-sm); }
+
+.sky-booking__row-num {
+  width: 24px;
+  font-size: 0.7rem;
+  color: var(--sky-text-muted);
+  text-align: center;
+  flex-shrink: 0;
+}
+
+.sky-booking__seat-letter {
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--sky-text-muted);
+}
+
+.sky-booking__aisle { width: 16px; flex-shrink: 0; }
+
+.sky-booking__seat {
+  width: 30px;
+  height: 28px;
+  border-radius: 4px 4px 2px 2px;
+  border: none;
+  cursor: pointer;
+  transition: all var(--sky-transition-fast);
+  flex-shrink: 0;
+}
+
+.sky-booking__seat--available { background: var(--sky-bg-secondary); border: 1.5px solid var(--sky-border); }
+.sky-booking__seat--available:hover { background: var(--sky-primary-100); border-color: var(--sky-primary); transform: scale(1.1); }
+.sky-booking__seat--occupied { background: var(--sky-border); cursor: not-allowed; opacity: 0.5; }
+.sky-booking__seat--selected { background: var(--sky-primary); border: 1.5px solid var(--sky-primary-dark); box-shadow: 0 2px 6px rgba(0,102,204,0.4); }
+.sky-booking__seat--business-seat { background: rgba(0,102,204,0.12); border: 1.5px solid rgba(0,102,204,0.3); }
+.sky-booking__seat--business-seat:hover { background: var(--sky-primary); }
+.sky-booking__seat--extra-legroom-seat { background: rgba(245,158,11,0.12); border: 1.5px solid rgba(245,158,11,0.3); }
+.sky-booking__seat--extra-legroom-seat:hover { background: var(--sky-gold); }
+
+.sky-booking__selected-seats {
+  margin-top: var(--sky-space-4);
+  padding: var(--sky-space-3) var(--sky-space-4);
+  background: var(--sky-primary-100);
+  border-radius: var(--sky-radius-md);
+  font-size: 0.9rem;
+  color: var(--sky-primary);
+}
+
+/* EXTRAS */
+.sky-booking__extras-grid {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sky-space-3);
+}
+
+.sky-booking__extra-card {
+  display: flex;
+  align-items: center;
+  gap: var(--sky-space-4);
+  padding: var(--sky-space-4) var(--sky-space-5);
+  border: 2px solid var(--sky-border);
+  border-radius: var(--sky-radius-lg);
+  cursor: pointer;
+  transition: all var(--sky-transition-fast);
+}
+
+.sky-booking__extra-card:hover { border-color: var(--sky-primary-light); }
+.sky-booking__extra-card--selected { border-color: var(--sky-primary); background: var(--sky-primary-50); }
+
+.sky-booking__extra-icon { font-size: 2rem; flex-shrink: 0; }
+.sky-booking__extra-info { flex: 1; }
+.sky-booking__extra-info h4 { font-size: 0.9375rem; font-weight: 600; margin-bottom: 4px; }
+.sky-booking__extra-info p { font-size: 0.85rem; color: var(--sky-text-muted); }
+
+.sky-booking__extra-price {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  font-weight: 700;
+  color: var(--sky-accent);
+  font-size: 0.9rem;
+  flex-shrink: 0;
+}
+
+.sky-booking__extra-check {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 2px solid var(--sky-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.9rem;
+  transition: all var(--sky-transition-fast);
+}
+
+.sky-booking__extra-check--active {
+  background: var(--sky-primary);
+  border-color: var(--sky-primary);
+  color: white;
+}
+
+/* PAYMENT */
+.sky-booking__payment-methods {
+  display: flex;
+  gap: var(--sky-space-2);
+  flex-wrap: wrap;
+  margin-bottom: var(--sky-space-5);
+}
+
+.sky-booking__pay-method {
+  padding: 10px 20px;
+  border: 2px solid var(--sky-border);
+  border-radius: var(--sky-radius-md);
+  background: var(--sky-bg);
+  cursor: pointer;
+  font-family: var(--sky-font);
+  font-size: 0.9rem;
+  transition: all var(--sky-transition-fast);
+  color: var(--sky-text-secondary);
+}
+
+.sky-booking__pay-method--active {
+  border-color: var(--sky-primary);
+  background: var(--sky-primary-100);
+  color: var(--sky-primary);
+  font-weight: 600;
+}
+
+/* Credit card visual */
+.sky-booking__card-visual {
+  background: linear-gradient(135deg, #003d7a, #0066cc, #00aaff);
+  border-radius: var(--sky-radius-xl);
+  padding: var(--sky-space-6);
+  color: white;
+  margin-bottom: var(--sky-space-6);
+  aspect-ratio: 1.586;
+  max-width: 380px;
+  position: relative;
+  box-shadow: var(--sky-shadow-lg);
+}
+
+.sky-booking__card-chip {
+  font-size: 0.75rem;
+  opacity: 0.8;
+  margin-bottom: var(--sky-space-8);
+  letter-spacing: 2px;
+}
+
+.sky-booking__card-number {
+  font-size: 1.25rem;
+  font-weight: 600;
+  letter-spacing: 3px;
+  margin-bottom: var(--sky-space-6);
+  font-family: monospace;
+}
+
+.sky-booking__card-footer {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.875rem;
+  opacity: 0.9;
+}
+
+.sky-booking__pay-redirect {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--sky-space-4);
+  padding: var(--sky-space-10);
+  text-align: center;
+  color: var(--sky-text-secondary);
+}
+
+.sky-booking__security-badges {
+  display: flex;
+  gap: var(--sky-space-3);
+  flex-wrap: wrap;
+  margin-top: var(--sky-space-5);
+}
+
+.sky-booking__security-badge {
+  font-size: 0.8rem;
+  padding: 6px 14px;
+  border: 1px solid var(--sky-success);
+  border-radius: var(--sky-radius-full);
+  color: var(--sky-success);
+}
+
+/* CONFIRMATION */
+.sky-booking__confirm {
+  text-align: center;
+  padding: var(--sky-space-12);
+}
+
+.sky-booking__confirm-icon {
+  font-size: 4rem;
+  margin-bottom: var(--sky-space-4);
+  animation: float 2s ease-in-out infinite;
+}
+
+.sky-booking__confirm h2 { margin-bottom: var(--sky-space-3); }
+.sky-booking__confirm p { color: var(--sky-text-secondary); margin-bottom: var(--sky-space-8); }
+
+.sky-booking__ref-card {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--sky-space-2);
+  padding: var(--sky-space-5) var(--sky-space-8);
+  background: var(--sky-primary-100);
+  border: 2px dashed var(--sky-primary);
+  border-radius: var(--sky-radius-lg);
+  margin-bottom: var(--sky-space-6);
+}
+
+.sky-booking__ref-number {
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--sky-primary);
+  letter-spacing: 4px;
+  font-family: monospace;
+}
+
+.sky-booking__confirm-flight {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: var(--sky-space-8);
+  color: var(--sky-text-secondary);
+  font-size: 0.9rem;
+}
+
+.sky-booking__confirm-actions {
+  display: flex;
+  gap: var(--sky-space-3);
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* Nav */
+.sky-booking__nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: var(--sky-space-6);
+  gap: var(--sky-space-3);
+}
+
+/* Sidebar */
+.sky-booking__summary-card { padding: var(--sky-space-5); }
+.sky-booking__summary-card h3 { margin-bottom: var(--sky-space-4); }
+
+.sky-booking__summary-flight {
+  display: flex;
+  gap: var(--sky-space-3);
+  margin-bottom: var(--sky-space-4);
+}
+
+.sky-booking__summary-airline {
+  width: 44px;
+  height: 44px;
+  border-radius: var(--sky-radius-md);
+  background: currentColor;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  font-weight: 800;
+  color: white !important;
+  flex-shrink: 0;
+  opacity: 0.9;
+}
+
+.sky-booking__summary-flight div strong { font-size: 0.9375rem; }
+.sky-booking__summary-flight div p { font-size: 0.8rem; color: var(--sky-text-muted); margin-top: 2px; }
+
+.sky-booking__summary-rows {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sky-space-3);
+}
+
+.sky-booking__summary-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.875rem;
+  color: var(--sky-text-secondary);
+  padding-bottom: var(--sky-space-3);
+  border-bottom: 1px solid var(--sky-border);
+}
+
+.sky-booking__summary-row:last-child { border-bottom: none; }
+.sky-booking__summary-row--total { color: var(--sky-text); font-size: 1rem; }
+
+.sky-booking__summary-seats {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.875rem;
+  margin-top: var(--sky-space-3);
+  color: var(--sky-primary);
+}
+
+.sky-booking__summary-secure {
+  text-align: center;
+  font-size: 0.8rem;
+  color: var(--sky-success);
+  margin-top: var(--sky-space-4);
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .sky-booking__body { grid-template-columns: 1fr; }
+  .sky-booking__form-grid { grid-template-columns: 1fr; }
+  .sky-booking__sidebar { order: -1; }
+}
+
+@media (max-width: 768px) {
+  .sky-booking__steps { gap: 4px; }
+  .sky-booking__step-line { width: 30px; }
+  .sky-booking__panel { padding: var(--sky-space-5); }
+  .sky-booking__card-visual { max-width: 100%; }
+}

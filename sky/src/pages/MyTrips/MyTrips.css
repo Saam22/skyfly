@@ -1,0 +1,320 @@
+.sky-mytrips { padding-bottom: var(--sky-space-16); }
+
+.sky-mytrips__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--sky-space-6);
+  gap: var(--sky-space-4);
+  flex-wrap: wrap;
+}
+
+.sky-mytrips__header p { margin-top: 4px; }
+
+.sky-mytrips__stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--sky-space-4);
+  margin-bottom: var(--sky-space-6);
+}
+
+.sky-mytrips__stat {
+  padding: var(--sky-space-5);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 4px;
+}
+
+.sky-mytrips__stat-icon { font-size: 1.5rem; }
+.sky-mytrips__stat-value { font-size: 1.25rem; color: var(--sky-text); }
+.sky-mytrips__stat-label { font-size: 0.8rem; color: var(--sky-text-muted); }
+
+/* Tabs */
+.sky-mytrips__tabs {
+  display: flex;
+  gap: var(--sky-space-1);
+  padding: 4px;
+  background: var(--sky-bg-secondary);
+  border-radius: var(--sky-radius-md);
+  margin-bottom: var(--sky-space-6);
+  width: fit-content;
+}
+
+.sky-mytrips__tab {
+  padding: 10px 20px;
+  border-radius: calc(var(--sky-radius-md) - 2px);
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--sky-text-secondary);
+  cursor: pointer;
+  transition: all var(--sky-transition-fast);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: none;
+  border: none;
+  font-family: var(--sky-font);
+}
+
+.sky-mytrips__tab--active {
+  background: var(--sky-bg-card);
+  color: var(--sky-primary);
+  font-weight: 600;
+  box-shadow: var(--sky-shadow-sm);
+}
+
+/* Trip Card */
+.sky-mytrips__list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sky-space-4);
+}
+
+.sky-mytrips__trip-card {
+  padding: var(--sky-space-5);
+  animation: fadeIn 0.4s ease forwards;
+}
+
+.sky-mytrips__trip-card--cancelled { opacity: 0.7; }
+
+.sky-mytrips__trip-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--sky-space-4);
+  padding-bottom: var(--sky-space-4);
+  border-bottom: 1px solid var(--sky-border);
+}
+
+.sky-mytrips__trip-ref { display: flex; flex-direction: column; gap: 2px; }
+.sky-mytrips__trip-ref strong { font-size: 0.9rem; }
+
+.sky-mytrips__trip-route {
+  display: flex;
+  align-items: center;
+  gap: var(--sky-space-4);
+  margin-bottom: var(--sky-space-4);
+}
+
+.sky-mytrips__trip-airline {
+  width: 44px;
+  height: 44px;
+  border-radius: var(--sky-radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.7rem;
+  font-weight: 800;
+  flex-shrink: 0;
+}
+
+.sky-mytrips__trip-cities {
+  display: flex;
+  align-items: center;
+  gap: var(--sky-space-3);
+  flex: 1;
+}
+
+.sky-mytrips__trip-city {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+  flex-shrink: 0;
+}
+
+.sky-mytrips__trip-city strong { font-size: 1.125rem; font-weight: 700; }
+.sky-mytrips__trip-city span { font-size: 0.8rem; color: var(--sky-primary); font-weight: 600; }
+.sky-mytrips__trip-city small { font-size: 0.75rem; color: var(--sky-text-muted); }
+
+.sky-mytrips__trip-journey {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.sky-mytrips__trip-duration { font-size: 0.75rem; color: var(--sky-text-muted); }
+
+.sky-mytrips__trip-line {
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.sky-mytrips__trip-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--sky-primary);
+  flex-shrink: 0;
+}
+
+.sky-mytrips__trip-bar {
+  flex: 1;
+  height: 2px;
+  background: var(--sky-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.7rem;
+  color: var(--sky-primary);
+}
+
+.sky-mytrips__trip-details {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: var(--sky-space-3);
+  padding: var(--sky-space-4);
+  background: var(--sky-bg-secondary);
+  border-radius: var(--sky-radius-md);
+  margin-bottom: var(--sky-space-4);
+}
+
+.sky-mytrips__trip-detail {
+  display: flex;
+  align-items: center;
+  gap: var(--sky-space-2);
+  font-size: 1.1rem;
+}
+
+.sky-mytrips__trip-detail div { display: flex; flex-direction: column; }
+.sky-mytrips__trip-detail small { font-size: 0.7rem; color: var(--sky-text-muted); }
+.sky-mytrips__trip-detail strong { font-size: 0.85rem; }
+
+.sky-mytrips__trip-actions {
+  display: flex;
+  gap: var(--sky-space-2);
+  flex-wrap: wrap;
+}
+
+/* Empty */
+.sky-mytrips__empty {
+  text-align: center;
+  padding: var(--sky-space-12) var(--sky-space-4);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--sky-space-4);
+}
+
+.sky-mytrips__empty span { font-size: 3rem; }
+.sky-mytrips__empty h3 { color: var(--sky-text); }
+.sky-mytrips__empty p { color: var(--sky-text-muted); }
+
+/* Modal */
+.sky-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  z-index: var(--sky-z-modal);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--sky-space-5);
+  backdrop-filter: blur(4px);
+  animation: fadeIn 0.2s ease;
+}
+
+.sky-modal {
+  background: var(--sky-bg-card);
+  border-radius: var(--sky-radius-xl);
+  padding: var(--sky-space-8);
+  max-width: 480px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: var(--sky-space-4);
+  box-shadow: var(--sky-shadow-xl);
+  animation: fadeIn 0.3s ease;
+}
+
+.sky-modal-actions {
+  display: flex;
+  gap: var(--sky-space-3);
+  justify-content: flex-end;
+  margin-top: var(--sky-space-4);
+}
+
+/* Boarding Pass */
+.sky-boarding-pass {
+  max-width: 400px;
+  text-align: center;
+}
+
+.sky-boarding-pass__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--sky-space-5);
+}
+
+.sky-boarding-pass__logo {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--sky-primary);
+}
+
+.sky-boarding-pass__route {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sky-space-3);
+  margin-bottom: var(--sky-space-5);
+  padding: var(--sky-space-4);
+  background: var(--sky-bg-secondary);
+  border-radius: var(--sky-radius-lg);
+}
+
+.sky-boarding-pass__city {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
+.sky-boarding-pass__city strong { font-size: 1.5rem; font-weight: 800; color: var(--sky-primary); }
+.sky-boarding-pass__city small { font-size: 0.8rem; color: var(--sky-text-muted); }
+.sky-boarding-pass__city span { font-size: 0.9rem; font-weight: 600; }
+
+.sky-boarding-pass__divider {
+  font-size: 0.9rem;
+  color: var(--sky-primary);
+  opacity: 0.5;
+}
+
+.sky-boarding-pass__details {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--sky-space-3);
+  margin-bottom: var(--sky-space-5);
+  text-align: start;
+}
+
+.sky-boarding-pass__detail-item { display: flex; flex-direction: column; gap: 2px; }
+.sky-boarding-pass__detail-item small { font-size: 0.7rem; color: var(--sky-text-muted); }
+.sky-boarding-pass__detail-item strong { font-size: 0.9rem; }
+
+.sky-boarding-pass__barcode {
+  font-family: monospace;
+  font-size: 1.5rem;
+  letter-spacing: 4px;
+  color: var(--sky-text);
+  margin-bottom: var(--sky-space-4);
+  opacity: 0.6;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .sky-mytrips__stats { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 768px) {
+  .sky-mytrips__header { flex-direction: column; align-items: flex-start; }
+  .sky-mytrips__stats { grid-template-columns: 1fr; }
+  .sky-mytrips__trip-route { flex-direction: column; align-items: flex-start; }
+  .sky-mytrips__trip-cities { width: 100%; }
+}
