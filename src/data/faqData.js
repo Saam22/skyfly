@@ -1,0 +1,23 @@
+export const FAQ_CATEGORIES = [
+  { id: 'booking', label: 'الحجز', labelEn: 'Booking', icon: '📋' },
+  { id: 'payment', label: 'الدفع', labelEn: 'Payment', icon: '💰' },
+  { id: 'baggage', label: 'الأمتعة', labelEn: 'Baggage', icon: '🧳' },
+  { id: 'cancellation', label: 'الإلغاء والتعديل', labelEn: 'Cancellation & Changes', icon: '🔄' },
+  { id: 'checkin', label: 'تسجيل الوصول', labelEn: 'Check-in', icon: '✅' },
+  { id: 'visa', label: 'التأشيرات', labelEn: 'Visas', icon: '🛂' },
+];
+
+export const FAQ_ITEMS = [
+  { id: 'f1', category: 'booking', question: 'كيف أحجز تذكرة طيران عبر SkyFly مصر؟', questionEn: 'How do I book a flight on SkyFly Egypt?', answer: 'يمكنك حجز تذكرتك بسهولة عبر كتابة وجهتك وتاريخ السفر في مربع البحث، ثم اختيار الرحلة المناسبة وإتمام خطوات الحجز.', answerEn: 'Simply enter your destination and travel date in the search box, select your preferred flight, and follow the booking steps.' },
+  { id: 'f2', category: 'booking', question: 'هل يمكنني حجز رحلة لعدة أشخاص؟', questionEn: 'Can I book for multiple people?', answer: 'نعم، يمكنك اختيار عدد المسافرين (بالغين، أطفال، رضع) قبل البحث لتظهر لك الأسعار المناسبة.', answerEn: 'Yes, select the number of travelers (adults, children, infants) before searching to see appropriate prices.' },
+  { id: 'f3', category: 'payment', question: 'ما هي طرق الدفع المتاحة؟', questionEn: 'What payment methods are available?', answer: 'نقبل الدفع عبر بطاقات الائتمان (فيزا، ماستركارد)، Apple Pay، STC Pay، مدى، Meeza، ValU، وفوري.', answerEn: 'We accept credit cards (Visa, Mastercard), Apple Pay, STC Pay, Mada, Meeza, ValU, and Fawry.' },
+  { id: 'f4', category: 'payment', question: 'هل الدفع آمن على SkyFly مصر؟', questionEn: 'Is payment secure on SkyFly Egypt?', answer: 'نعم، جميع المدفوعات مشفرة وآمنة. نستخدم أحدث تقنيات التشفير لحماية معلومات بطاقتك.', answerEn: 'Yes, all payments are encrypted and secure. We use the latest encryption technology to protect your card information.' },
+  { id: 'f5', category: 'baggage', question: 'ما هي كمية الأمتعة المسموح بها؟', questionEn: 'What is the allowed baggage allowance?', answer: 'تختلف كمية الأمتعة حسب شركة الطيران ودرجة السفر. عادةً، تسمح الدرجة الاقتصادية بحقيبة واحدة بوزن 23 كجم.', answerEn: 'Baggage allowance varies by airline and travel class. Economy class typically allows one bag up to 23kg.' },
+  { id: 'f6', category: 'baggage', question: 'هل يمكنني إضافة أمتعة إضافية بعد الحجز؟', questionEn: 'Can I add extra baggage after booking?', answer: 'نعم، يمكنك إضافة أمتعة إضافية من خلال صفحة إدارة الحجز أو الاتصال بفريق الدعم.', answerEn: 'Yes, you can add extra baggage through the booking management page or by contacting support.' },
+  { id: 'f7', category: 'cancellation', question: 'ما هي سياسة الإلغاء؟', questionEn: 'What is the cancellation policy?', answer: 'تختلف سياسة الإلغاء حسب نوع التذكرة وشركة الطيران. يمكنك الاطلاع على سياسة الإلغاء أثناء الحجز.', answerEn: 'Cancellation policy varies by ticket type and airline. You can review the policy during booking.' },
+  { id: 'f8', category: 'cancellation', question: 'كيف أعدل حجزي؟', questionEn: 'How do I modify my booking?', answer: 'يمكنك تعديل حجزي من خلال صفحة رحلاتي، أو الاتصال بفريق الدعم على الرقم ١٦١١١.', answerEn: 'You can modify your booking through the My Trips page, or contact our support team at 16111.' },
+  { id: 'f9', category: 'checkin', question: 'متى يمكنني تسجيل الوصول؟', questionEn: 'When can I check in?', answer: 'يمكنك تسجيل الوصول إلكترونياً قبل 24 ساعة من موعد الرحلة، أو في المطار قبل 3 ساعات من الرحلة.', answerEn: 'You can check in online 24 hours before departure, or at the airport 3 hours before your flight.' },
+  { id: 'f10', category: 'checkin', question: 'هل يمكنني اختيار مقعدي عند الحجز؟', questionEn: 'Can I select my seat during booking?', answer: 'نعم، يمكنك اختيار مقعدك من خريطة المقاعد التفاعلية أثناء الحجز. بعض المقاعد قد تتطلب رسوماً إضافية.', answerEn: 'Yes, you can select your seat from the interactive seat map during booking. Some seats may have additional fees.' },
+  { id: 'f11', category: 'visa', question: 'هل أحتاج إلى تأشيرة للسفر من مصر؟', questionEn: 'Do I need a visa to travel from Egypt?', answer: 'تختلف متطلبات التأشيرة حسب وجهتك وجنسيتك. يرجى التأكد من متطلبات التأشيرة قبل السفر.', answerEn: 'Visa requirements vary by destination and nationality. Please check visa requirements before traveling.' },
+  { id: 'f12', category: 'visa', question: 'هل تقدمون خدمة استخراج التأشيرات؟', questionEn: 'Do you offer visa services?', answer: 'نعم، نقدم خدمة استخراج التأشيرات لبعض الوجهات. يمكنك التواصل مع فريق الدعم للاستفسار عن التفاصيل.', answerEn: 'Yes, we offer visa processing services for certain destinations. Contact our support team for details.' },
+];

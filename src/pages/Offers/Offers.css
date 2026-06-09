@@ -1,0 +1,413 @@
+/* ===== Offers Page ===== */
+.sky-offers {
+  padding-bottom: var(--sky-space-16);
+}
+
+/* ===== Last Minute Deals ===== */
+.sky-offers__last-minute {
+  background: var(--sky-bg);
+}
+
+.sky-offers__last-minute-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--sky-space-5);
+}
+
+.sky-offers__lm-card {
+  position: relative;
+  background-size: cover;
+  background-position: center;
+  border: none;
+  border-radius: var(--sky-radius-xl);
+  min-height: 360px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  transition: all var(--sky-transition);
+}
+
+.sky-offers__lm-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--sky-shadow-xl);
+}
+
+.sky-offers__lm-badge {
+  position: absolute;
+  top: var(--sky-space-3);
+  left: var(--sky-space-3);
+  padding: 6px 14px;
+  background: var(--sky-danger);
+  color: white;
+  font-size: 0.75rem;
+  font-weight: 800;
+  border-radius: var(--sky-radius-full);
+  letter-spacing: 0.04em;
+  animation: skyOffersPulse 2s ease-in-out infinite;
+}
+
+@keyframes skyOffersPulse {
+  0%, 100% { box-shadow: 0 0 8px rgba(239, 68, 68, 0.4); }
+  50% { box-shadow: 0 0 20px rgba(239, 68, 68, 0.7); }
+}
+
+.sky-offers__lm-content {
+  padding: var(--sky-space-5);
+  background: linear-gradient(0deg, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.5) 60%, transparent 100%);
+  border-radius: 0 0 var(--sky-radius-xl) var(--sky-radius-xl);
+  display: flex;
+  flex-direction: column;
+  gap: var(--sky-space-2);
+}
+
+.sky-offers__lm-title {
+  font-size: 1.125rem;
+  font-weight: 800;
+  color: white;
+  line-height: 1.3;
+}
+
+.sky-offers__lm-airline {
+  font-size: 0.85rem;
+  color: rgba(255,255,255,0.75);
+  font-weight: 500;
+}
+
+.sky-offers__lm-pricing {
+  display: flex;
+  align-items: baseline;
+  gap: var(--sky-space-2);
+}
+
+.sky-offers__lm-original {
+  font-size: 0.85rem;
+  color: rgba(255,255,255,0.5);
+  text-decoration: line-through;
+}
+
+.sky-offers__lm-price {
+  font-size: 1.5rem;
+  font-weight: 900;
+  color: var(--sky-accent-light);
+  line-height: 1;
+}
+
+.sky-offers__lm-price small {
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.sky-offers__lm-departure {
+  font-size: 0.8rem;
+  color: rgba(255,255,255,0.6);
+}
+
+.sky-offers__lm-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: var(--sky-space-2);
+}
+
+/* ===== Seasonal Offers ===== */
+.sky-offers__seasonal {
+  background: var(--sky-bg-secondary);
+}
+
+.sky-offers__seasonal-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--sky-space-5);
+}
+
+.sky-offers__seasonal-card {
+  padding: var(--sky-space-8) var(--sky-space-6);
+  text-align: center;
+  border: none;
+  border-radius: var(--sky-radius-xl);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--sky-space-3);
+  color: white;
+  min-height: 280px;
+  justify-content: center;
+  transition: all var(--sky-transition);
+}
+
+.sky-offers__seasonal-card:hover {
+  transform: translateY(-6px) scale(1.02);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+}
+
+.sky-offers__seasonal-icon {
+  font-size: 3rem;
+  filter: drop-shadow(0 4px 12px rgba(0,0,0,0.2));
+}
+
+.sky-offers__seasonal-title {
+  font-size: 1.25rem;
+  font-weight: 800;
+  line-height: 1.3;
+}
+
+.sky-offers__seasonal-desc {
+  font-size: 0.875rem;
+  opacity: 0.9;
+  line-height: 1.6;
+  max-width: 240px;
+}
+
+.sky-offers__seasonal-period {
+  display: inline-block;
+  padding: 6px 16px;
+  background: rgba(255,255,255,0.2);
+  border-radius: var(--sky-radius-full);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  backdrop-filter: blur(4px);
+}
+
+/* ===== Travel Packages ===== */
+.sky-offers__packages {
+  background: var(--sky-bg);
+}
+
+.sky-offers__packages-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--sky-space-5);
+}
+
+.sky-offers__package-card {
+  position: relative;
+  background-size: cover;
+  background-position: center;
+  border: none;
+  border-radius: var(--sky-radius-xl);
+  padding: var(--sky-space-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--sky-space-3);
+  min-height: 400px;
+  justify-content: flex-end;
+  transition: all var(--sky-transition);
+}
+
+.sky-offers__package-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--sky-shadow-xl);
+}
+
+.sky-offers__package-header {
+  display: flex;
+  align-items: center;
+  gap: var(--sky-space-2);
+}
+
+.sky-offers__package-flag {
+  font-size: 1.5rem;
+}
+
+.sky-offers__package-name {
+  font-size: 1.125rem;
+  font-weight: 800;
+  color: white;
+}
+
+.sky-offers__package-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.sky-offers__package-rating {
+  display: flex;
+  align-items: center;
+  gap: var(--sky-space-1);
+}
+
+.sky-offers__package-rating .sky-stars {
+  color: var(--sky-gold);
+  font-size: 0.9rem;
+}
+
+.sky-offers__package-rating-num {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: rgba(255,255,255,0.8);
+}
+
+.sky-offers__package-nights {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: rgba(255,255,255,0.7);
+  padding: 4px 12px;
+  background: rgba(255,255,255,0.15);
+  border-radius: var(--sky-radius-full);
+}
+
+.sky-offers__package-pricing {
+  display: flex;
+  align-items: baseline;
+  gap: var(--sky-space-2);
+}
+
+.sky-offers__package-original {
+  font-size: 0.85rem;
+  color: rgba(255,255,255,0.5);
+  text-decoration: line-through;
+}
+
+.sky-offers__package-price {
+  font-size: 1.75rem;
+  font-weight: 900;
+  color: var(--sky-accent-light);
+  line-height: 1;
+}
+
+.sky-offers__package-price small {
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.sky-offers__package-includes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.sky-offers__package-includes li {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: rgba(255,255,255,0.85);
+  padding: 4px 10px;
+  background: rgba(255,255,255,0.15);
+  border-radius: var(--sky-radius-full);
+}
+
+/* ===== Exclusive Discounts ===== */
+.sky-offers__discounts {
+  background: var(--sky-bg-secondary);
+}
+
+.sky-offers__discounts-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--sky-space-5);
+}
+
+.sky-offers__discount-card {
+  padding: var(--sky-space-6);
+  border-radius: var(--sky-radius-xl);
+  display: flex;
+  flex-direction: column;
+  gap: var(--sky-space-4);
+  text-align: center;
+  transition: all var(--sky-transition);
+}
+
+.sky-offers__discount-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--sky-shadow-lg);
+}
+
+.sky-offers__discount-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sky-space-2);
+}
+
+.sky-offers__discount-title {
+  font-size: 1.125rem;
+  font-weight: 800;
+  color: var(--sky-text);
+}
+
+.sky-offers__discount-desc {
+  font-size: 0.875rem;
+  color: var(--sky-text-secondary);
+  line-height: 1.6;
+}
+
+.sky-offers__discount-code-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sky-space-2);
+  background: var(--sky-bg);
+  border: 2px dashed var(--sky-accent);
+  border-radius: var(--sky-radius-md);
+  padding: var(--sky-space-2) var(--sky-space-3);
+}
+
+.sky-offers__discount-code {
+  font-family: 'Courier New', monospace;
+  font-size: 1.125rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  color: var(--sky-primary);
+  direction: ltr;
+}
+
+.sky-offers__discount-copy-btn {
+  padding: 6px 16px;
+  background: var(--sky-gradient-warm);
+  color: #1A120B;
+  font-size: 0.8rem;
+  font-weight: 700;
+  border-radius: var(--sky-radius-sm);
+  transition: all var(--sky-transition-fast);
+  white-space: nowrap;
+}
+
+.sky-offers__discount-copy-btn:hover {
+  transform: scale(1.05);
+  box-shadow: var(--sky-shadow-accent);
+}
+
+.sky-offers__discount-copy-btn--copied {
+  background: var(--sky-success);
+  color: white;
+}
+
+.sky-offers__discount-expiry {
+  font-size: 0.8rem;
+  color: var(--sky-text-muted);
+  font-weight: 500;
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 1024px) {
+  .sky-offers__last-minute-grid,
+  .sky-offers__seasonal-grid,
+  .sky-offers__packages-grid,
+  .sky-offers__discounts-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .sky-offers__last-minute-grid,
+  .sky-offers__seasonal-grid,
+  .sky-offers__packages-grid,
+  .sky-offers__discounts-grid {
+    grid-template-columns: 1fr;
+    gap: var(--sky-space-4);
+  }
+
+  .sky-offers__lm-card {
+    min-height: 300px;
+  }
+
+  .sky-offers__package-card {
+    min-height: 340px;
+  }
+
+  .sky-offers__seasonal-card {
+    min-height: 220px;
+    padding: var(--sky-space-6) var(--sky-space-4);
+  }
+}

@@ -1,0 +1,516 @@
+/* ===== ADMIN DASHBOARD ===== */
+.sky-admin {
+  padding-top: calc(70px + var(--sky-space-8));
+  padding-bottom: var(--sky-space-12);
+}
+
+.sky-admin__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--sky-space-4);
+  margin-bottom: var(--sky-space-8);
+  flex-wrap: wrap;
+}
+
+.sky-admin__header h1 {
+  margin-bottom: var(--sky-space-1);
+}
+
+.sky-admin__header-sub {
+  color: var(--sky-text-secondary);
+  font-size: 1rem;
+}
+
+.sky-admin__header-actions {
+  display: flex;
+  gap: var(--sky-space-3);
+  align-items: center;
+}
+
+/* Tabs */
+.sky-admin__tabs {
+  display: flex;
+  gap: var(--sky-space-2);
+  margin-bottom: var(--sky-space-8);
+  border-bottom: 1.5px solid var(--sky-border);
+  padding-bottom: 0;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+
+.sky-admin__tabs::-webkit-scrollbar {
+  display: none;
+}
+
+.sky-admin__tab {
+  padding: var(--sky-space-3) var(--sky-space-5);
+  font-size: 0.9375rem;
+  font-weight: 700;
+  color: var(--sky-text-secondary);
+  background: transparent;
+  border: none;
+  border-bottom: 3px solid transparent;
+  cursor: pointer;
+  transition: all var(--sky-transition-fast);
+  white-space: nowrap;
+  font-family: var(--sky-font);
+  margin-bottom: -1.5px;
+}
+
+.sky-admin__tab:hover {
+  color: var(--sky-primary);
+  background: var(--sky-primary-50);
+  border-radius: var(--sky-radius-sm) var(--sky-radius-sm) 0 0;
+}
+
+.sky-admin__tab--active {
+  color: var(--sky-primary);
+  border-bottom-color: var(--sky-primary);
+}
+
+/* Tab Content */
+.sky-admin__tab-content {
+  animation: fadeIn 0.4s ease forwards;
+}
+
+/* ===== STATS GRID ===== */
+.sky-admin__stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--sky-space-4);
+  margin-bottom: var(--sky-space-6);
+}
+
+.sky-admin__stat-card {
+  padding: var(--sky-space-5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--sky-space-1);
+  border-radius: var(--sky-radius-lg);
+  position: relative;
+  overflow: hidden;
+}
+
+.sky-admin__stat-card::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background: var(--sky-primary-50);
+  transform: translate(30%, -30%);
+  pointer-events: none;
+}
+
+.sky-admin__stat-card:nth-child(2)::after {
+  background: rgba(212, 168, 67, 0.12);
+}
+
+.sky-admin__stat-card:nth-child(3)::after {
+  background: rgba(16, 185, 129, 0.08);
+}
+
+.sky-admin__stat-card:nth-child(5)::after {
+  background: rgba(59, 130, 246, 0.08);
+}
+
+.sky-admin__stat-card:nth-child(6)::after {
+  background: rgba(245, 158, 11, 0.08);
+}
+
+.sky-admin__stat-icon {
+  font-size: 1.5rem;
+  margin-bottom: var(--sky-space-1);
+  position: relative;
+  z-index: 1;
+}
+
+.sky-admin__stat-value {
+  font-size: 1.5rem;
+  font-weight: 900;
+  color: var(--sky-text);
+  line-height: 1.2;
+  position: relative;
+  z-index: 1;
+}
+
+.sky-admin__stat-label {
+  font-size: 0.8rem;
+  color: var(--sky-text-muted);
+  font-weight: 500;
+  position: relative;
+  z-index: 1;
+}
+
+/* ===== CHARTS ===== */
+.sky-admin__charts {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--sky-space-5);
+  margin-bottom: var(--sky-space-6);
+}
+
+.sky-admin__chart-box {
+  padding: var(--sky-space-6);
+  border-radius: var(--sky-radius-lg);
+}
+
+.sky-admin__chart-box .sky-h4 {
+  margin-bottom: var(--sky-space-5);
+}
+
+.sky-admin__bar-chart {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--sky-space-2);
+  height: 240px;
+}
+
+.sky-admin__bar-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  height: 100%;
+  gap: var(--sky-space-1);
+  position: relative;
+}
+
+.sky-admin__bar-value {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  color: var(--sky-text-secondary);
+  white-space: nowrap;
+}
+
+.sky-admin__bar-track {
+  width: 100%;
+  max-width: 48px;
+  height: 180px;
+  background: var(--sky-bg-secondary);
+  border-radius: var(--sky-radius-full);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: flex-end;
+}
+
+.sky-admin__bar-fill {
+  width: 100%;
+  border-radius: var(--sky-radius-full);
+  transition: height 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  min-height: 4px;
+}
+
+.sky-admin__bar-fill--bookings {
+  background: linear-gradient(to top, var(--sky-primary), var(--sky-primary-light));
+}
+
+.sky-admin__bar-fill--revenue {
+  background: linear-gradient(to top, var(--sky-accent-dark), var(--sky-accent));
+}
+
+.sky-admin__bar-label {
+  font-size: 0.6875rem;
+  color: var(--sky-text-muted);
+  font-weight: 600;
+  text-align: center;
+  white-space: nowrap;
+}
+
+/* ===== TABLES ===== */
+.sky-admin__table-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--sky-space-4);
+}
+
+.sky-admin__table-wrap {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.sky-admin__table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.875rem;
+}
+
+.sky-admin__table thead th {
+  text-align: start;
+  padding: var(--sky-space-3) var(--sky-space-3);
+  font-size: 0.75rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--sky-text-muted);
+  border-bottom: 1.5px solid var(--sky-border);
+  white-space: nowrap;
+}
+
+.sky-admin__table tbody tr {
+  transition: background var(--sky-transition-fast);
+}
+
+.sky-admin__table tbody tr:hover {
+  background: var(--sky-primary-50);
+}
+
+.sky-admin__table tbody td {
+  padding: var(--sky-space-3) var(--sky-space-3);
+  border-bottom: 1px solid var(--sky-border);
+  vertical-align: middle;
+}
+
+.sky-admin__table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.sky-admin__td-price {
+  font-weight: 700;
+  color: var(--sky-primary);
+  white-space: nowrap;
+}
+
+.sky-admin__td-revenue {
+  font-weight: 700;
+  color: var(--sky-accent-dark);
+  white-space: nowrap;
+}
+
+/* Share bar */
+.sky-admin__share-bar {
+  width: 120px;
+  height: 6px;
+  background: var(--sky-bg-secondary);
+  border-radius: var(--sky-radius-full);
+  overflow: hidden;
+}
+
+.sky-admin__share-fill {
+  height: 100%;
+  background: var(--sky-gradient-accent);
+  border-radius: var(--sky-radius-full);
+  transition: width 0.5s ease;
+}
+
+/* Seat bar */
+.sky-admin__cell-bar {
+  display: flex;
+  align-items: center;
+  gap: var(--sky-space-2);
+  min-width: 100px;
+}
+
+.sky-admin__cell-bar span {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  white-space: nowrap;
+  min-width: 40px;
+}
+
+.sky-admin__seat-track {
+  flex: 1;
+  height: 6px;
+  background: var(--sky-bg-secondary);
+  border-radius: var(--sky-radius-full);
+  overflow: hidden;
+}
+
+.sky-admin__seat-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--sky-primary), var(--sky-accent));
+  border-radius: var(--sky-radius-full);
+  transition: width 0.5s ease;
+}
+
+/* Destination rank */
+.sky-admin__dest-rank {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: var(--sky-radius-full);
+  background: var(--sky-primary-100);
+  color: var(--sky-primary);
+  font-size: 0.6875rem;
+  font-weight: 800;
+  margin-inline-end: var(--sky-space-2);
+}
+
+/* Trip count badge */
+.sky-admin__trip-count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 28px;
+  height: 28px;
+  padding: 0 var(--sky-space-2);
+  border-radius: var(--sky-radius-full);
+  background: var(--sky-bg-secondary);
+  font-weight: 700;
+  font-size: 0.8125rem;
+}
+
+/* Tier badge */
+.sky-admin__tier-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 14px;
+  border-radius: var(--sky-radius-full);
+  font-size: 0.75rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+/* Ref code */
+.sky-admin__ref {
+  font-family: 'Courier New', monospace;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  color: var(--sky-text);
+  background: var(--sky-bg-secondary);
+  padding: 2px 8px;
+  border-radius: var(--sky-radius-sm);
+}
+
+/* ===== SETTINGS ===== */
+.sky-admin__settings {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--sky-space-5);
+}
+
+.sky-admin__settings-card {
+  padding: var(--sky-space-6);
+  border-radius: var(--sky-radius-lg);
+}
+
+.sky-admin__settings-card .sky-h4 {
+  margin-bottom: var(--sky-space-2);
+}
+
+.sky-admin__settings-card p {
+  margin-bottom: var(--sky-space-5);
+  font-size: 0.875rem;
+}
+
+.sky-admin__setting-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--sky-space-3) 0;
+  border-bottom: 1px solid var(--sky-border);
+  font-weight: 600;
+}
+
+.sky-admin__setting-row:last-child {
+  border-bottom: none;
+}
+
+.sky-admin__info-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--sky-space-3);
+}
+
+.sky-admin__info-item {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.sky-admin__info-item span {
+  font-size: 0.75rem;
+}
+
+.sky-admin__info-item strong {
+  font-size: 0.9375rem;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 1024px) {
+  .sky-admin__stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .sky-admin__charts {
+    grid-template-columns: 1fr;
+  }
+
+  .sky-admin__settings {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .sky-admin__header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .sky-admin__header-actions {
+    flex-wrap: wrap;
+  }
+
+  .sky-admin__stats-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .sky-admin__stat-card {
+    padding: var(--sky-space-4);
+  }
+
+  .sky-admin__stat-value {
+    font-size: 1.25rem;
+  }
+
+  .sky-admin__tab {
+    padding: var(--sky-space-2) var(--sky-space-3);
+    font-size: 0.8125rem;
+  }
+
+  .sky-admin__settings {
+    grid-template-columns: 1fr;
+  }
+
+  .sky-admin__bar-chart {
+    height: 180px;
+  }
+
+  .sky-admin__bar-track {
+    height: 130px;
+  }
+
+  .sky-admin__chart-box {
+    padding: var(--sky-space-4);
+  }
+
+  .sky-admin__settings-card {
+    padding: var(--sky-space-4);
+  }
+}
+
+@media (max-width: 480px) {
+  .sky-admin__stats-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .sky-admin__tabs {
+    gap: var(--sky-space-1);
+  }
+
+  .sky-admin__tab {
+    font-size: 0.75rem;
+    padding: var(--sky-space-2) var(--sky-space-2);
+  }
+}

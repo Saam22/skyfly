@@ -285,6 +285,39 @@
   font-weight: 800;
 }
 
+.sky-navbar__mega-trigger { position: relative; }
+.sky-navbar__mega {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  min-width: 220px;
+  background: var(--sky-bg-overlay);
+  border: 1px solid var(--sky-border);
+  border-radius: var(--sky-radius-lg);
+  box-shadow: var(--sky-shadow-lg);
+  padding: var(--sky-space-2);
+  z-index: var(--sky-z-dropdown);
+  animation: scaleIn 0.15s ease;
+  backdrop-filter: blur(24px);
+}
+.sky-navbar__mega-link {
+  display: block;
+  padding: 10px 16px;
+  border-radius: var(--sky-radius-sm);
+  color: var(--sky-text-secondary);
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: all var(--sky-transition-fast);
+}
+.sky-navbar__mega-link:hover { background: var(--sky-primary-100); color: var(--sky-primary); }
+.sky-navbar__mega-link--special { color: var(--sky-primary); font-weight: 700; }
+.sky-navbar__mega-divider { height: 1px; background: var(--sky-border); margin: 4px 0; }
+.sky-navbar__action-btn--active {
+  background: var(--sky-primary) !important;
+  color: white !important;
+}
+
 @media (max-width: 768px) {
   .sky-navbar__hamburger { display: flex; }
   .sky-navbar__mobile-menu { display: flex; }

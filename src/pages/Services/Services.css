@@ -1,0 +1,326 @@
+/* ===== Services Page ===== */
+.sky-services {
+  padding-bottom: var(--sky-space-16);
+}
+
+/* ===== Hero / Tabs ===== */
+.sky-services__hero {
+  background: var(--sky-bg-secondary);
+  padding-bottom: 0;
+}
+
+.sky-services__tabs {
+  display: flex;
+  justify-content: center;
+  gap: var(--sky-space-3);
+  padding-bottom: var(--sky-space-8);
+  flex-wrap: wrap;
+}
+
+.sky-services__tab {
+  display: flex;
+  align-items: center;
+  gap: var(--sky-space-2);
+  padding: 14px 28px;
+  border-radius: var(--sky-radius-full);
+  font-size: 0.9375rem;
+  font-weight: 700;
+  font-family: var(--sky-font);
+  color: var(--sky-text-secondary);
+  background: var(--sky-bg-card);
+  border: 1.5px solid var(--sky-border);
+  cursor: pointer;
+  transition: all var(--sky-transition);
+  white-space: nowrap;
+}
+
+.sky-services__tab:hover {
+  border-color: var(--sky-primary-200);
+  color: var(--sky-primary);
+}
+
+.sky-services__tab--active {
+  background: var(--sky-primary);
+  color: white;
+  border-color: var(--sky-primary);
+  box-shadow: 0 8px 24px rgba(200, 16, 46, 0.3);
+}
+
+.sky-services__tab--active:hover {
+  color: white;
+}
+
+.sky-services__tab-icon {
+  font-size: 1.2rem;
+}
+
+.sky-services__tab-label {
+  line-height: 1;
+}
+
+/* ===== Shared Card Grid ===== */
+.sky-services__section {
+  background: var(--sky-bg);
+}
+
+.sky-services__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--sky-space-5);
+}
+
+/* ===== Card ===== */
+.sky-services__card {
+  display: flex;
+  flex-direction: column;
+  border-radius: var(--sky-radius-xl);
+  transition: all var(--sky-transition);
+}
+
+.sky-services__card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--sky-shadow-lg);
+}
+
+.sky-services__card-img-wrap {
+  position: relative;
+  height: 200px;
+  overflow: hidden;
+}
+
+.sky-services__card-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--sky-transition-slow);
+}
+
+.sky-services__card:hover .sky-services__card-img {
+  transform: scale(1.08);
+}
+
+.sky-services__card-badge {
+  position: absolute;
+  top: var(--sky-space-3);
+  right: var(--sky-space-3);
+  padding: 6px 14px;
+  background: rgba(0, 0, 0, 0.65);
+  color: var(--sky-gold);
+  font-size: 0.8rem;
+  font-weight: 700;
+  border-radius: var(--sky-radius-full);
+  backdrop-filter: blur(4px);
+}
+
+.sky-services__card-badge--type {
+  color: white;
+  font-size: 0.75rem;
+}
+
+.sky-services__card-body {
+  padding: var(--sky-space-5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--sky-space-2);
+  flex: 1;
+}
+
+.sky-services__card-title {
+  font-size: 1.125rem;
+  font-weight: 800;
+  color: var(--sky-text);
+  line-height: 1.3;
+}
+
+.sky-services__card-subtitle {
+  font-size: 0.85rem;
+  color: var(--sky-text-secondary);
+  font-weight: 500;
+}
+
+.sky-services__card-rating {
+  display: flex;
+  align-items: center;
+  gap: var(--sky-space-1);
+}
+
+.sky-services__card-rating .sky-stars {
+  font-size: 0.9rem;
+}
+
+.sky-services__card-rating-num {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--sky-text-muted);
+}
+
+.sky-services__card-location {
+  font-size: 0.8rem;
+  color: var(--sky-text-muted);
+  font-weight: 500;
+}
+
+.sky-services__card-meta {
+  font-size: 0.85rem;
+  color: var(--sky-text-secondary);
+  font-weight: 600;
+}
+
+.sky-services__card-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.sky-services__card-chips .sky-badge {
+  font-size: 0.7rem;
+  padding: 3px 10px;
+}
+
+.sky-services__card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: auto;
+  padding-top: var(--sky-space-4);
+  border-top: 1px solid var(--sky-border);
+}
+
+.sky-services__card-price strong {
+  font-size: 1.25rem;
+  font-weight: 900;
+  color: var(--sky-primary);
+}
+
+.sky-services__card-price small {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--sky-text-secondary);
+}
+
+/* ===== Insurance Plans ===== */
+.sky-services__insurance-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--sky-space-6);
+  align-items: start;
+}
+
+.sky-services__plan-card {
+  border-radius: var(--sky-radius-xl);
+  overflow: hidden;
+  background: var(--sky-bg-card);
+  border: 1px solid var(--sky-border);
+  transition: all var(--sky-transition);
+  display: flex;
+  flex-direction: column;
+}
+
+.sky-services__plan-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+  border-color: var(--plan-accent);
+}
+
+.sky-services__plan-header {
+  padding: var(--sky-space-8) var(--sky-space-6);
+  text-align: center;
+  color: white;
+}
+
+.sky-services__plan-name {
+  font-size: 1.375rem;
+  font-weight: 800;
+  margin-bottom: var(--sky-space-3);
+}
+
+.sky-services__plan-price strong {
+  font-size: 2.5rem;
+  font-weight: 900;
+  line-height: 1;
+}
+
+.sky-services__plan-price small {
+  font-size: 1rem;
+  font-weight: 600;
+  opacity: 0.9;
+}
+
+.sky-services__plan-body {
+  padding: var(--sky-space-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--sky-space-4);
+  flex: 1;
+}
+
+.sky-services__plan-coverage {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--sky-text-secondary);
+  text-align: center;
+  padding-bottom: var(--sky-space-3);
+  border-bottom: 1px solid var(--sky-border);
+}
+
+.sky-services__plan-benefits {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sky-space-2);
+  flex: 1;
+}
+
+.sky-services__plan-benefit {
+  display: flex;
+  align-items: center;
+  gap: var(--sky-space-2);
+  font-size: 0.875rem;
+  color: var(--sky-text);
+  font-weight: 500;
+}
+
+.sky-services__plan-check {
+  font-weight: 900;
+  font-size: 1rem;
+  flex-shrink: 0;
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 1024px) {
+  .sky-services__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .sky-services__insurance-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .sky-services__grid {
+    grid-template-columns: 1fr;
+    gap: var(--sky-space-4);
+  }
+
+  .sky-services__insurance-grid {
+    grid-template-columns: 1fr;
+    gap: var(--sky-space-4);
+  }
+
+  .sky-services__card-img-wrap {
+    height: 180px;
+  }
+
+  .sky-services__tab {
+    padding: 10px 18px;
+    font-size: 0.8125rem;
+  }
+
+  .sky-services__plan-header {
+    padding: var(--sky-space-6) var(--sky-space-4);
+  }
+
+  .sky-services__plan-price strong {
+    font-size: 2rem;
+  }
+}

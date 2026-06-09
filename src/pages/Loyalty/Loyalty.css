@@ -1,0 +1,651 @@
+/* ===== Loyalty Page ===== */
+.sky-loyalty {
+  padding-bottom: var(--sky-space-16);
+}
+
+/* ===== Hero Section ===== */
+.sky-loyalty__hero {
+  position: relative;
+  background: var(--sky-gradient-hero);
+  padding: var(--sky-space-20) 0 var(--sky-space-16);
+  overflow: hidden;
+  text-align: center;
+}
+
+.sky-loyalty__hero::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(212, 168, 67, 0.12) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.sky-loyalty__hero-bg {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(circle 600px at 10% 80%, rgba(212, 168, 67, 0.06) 0%, transparent 60%),
+    radial-gradient(circle 400px at 90% 20%, rgba(200, 16, 46, 0.08) 0%, transparent 50%);
+}
+
+.sky-loyalty__hero-content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--sky-space-6);
+}
+
+.sky-loyalty__tier-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sky-space-4);
+  padding: var(--sky-space-3) var(--sky-space-6);
+  border-radius: var(--sky-radius-2xl);
+  box-shadow: 0 0 40px rgba(0, 0, 0, 0.3);
+  animation: skyLoyaltyTierIn 0.6s ease forwards;
+}
+
+@keyframes skyLoyaltyTierIn {
+  from { opacity: 0; transform: scale(0.85) translateY(-20px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+.sky-loyalty__tier-icon {
+  font-size: 2.5rem;
+  filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.2));
+}
+
+.sky-loyalty__tier-info {
+  text-align: start;
+}
+
+.sky-loyalty__tier-label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: rgba(255, 255, 255, 0.8);
+  display: block;
+}
+
+.sky-loyalty__tier-name {
+  font-size: 1.5rem;
+  font-weight: 900;
+  color: white;
+  line-height: 1.2;
+}
+
+.sky-loyalty__points-display {
+  text-align: center;
+}
+
+.sky-loyalty__points-label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.7);
+  display: block;
+  margin-bottom: var(--sky-space-2);
+}
+
+.sky-loyalty__points-counter {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: var(--sky-space-2);
+}
+
+.sky-loyalty__points-number {
+  font-size: clamp(3rem, 8vw, 5rem);
+  font-weight: 900;
+  background: linear-gradient(135deg, #FFD700, #FFF8DC, #D4A843);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  line-height: 1;
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.sky-loyalty__points-animate {
+  animation: skyLoyaltyPointsIn 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+@keyframes skyLoyaltyPointsIn {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.sky-loyalty__points-unit {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.sky-loyalty__points-next {
+  font-size: 0.9375rem;
+  color: rgba(255, 255, 255, 0.7);
+  margin-top: var(--sky-space-2);
+}
+
+.sky-loyalty__points-max {
+  color: var(--sky-accent-light);
+  font-weight: 600;
+}
+
+/* ===== Progress Bar ===== */
+.sky-loyalty__progress-wrap {
+  width: 100%;
+  max-width: 480px;
+}
+
+.sky-loyalty__progress-bar {
+  height: 10px;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: var(--sky-radius-full);
+  overflow: hidden;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+.sky-loyalty__progress-fill {
+  height: 100%;
+  border-radius: var(--sky-radius-full);
+  transition: width 1.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+  box-shadow: 0 0 12px rgba(212, 168, 67, 0.5);
+  position: relative;
+}
+
+.sky-loyalty__progress-fill::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  animation: skyLoyaltyShimmer 2s infinite;
+}
+
+@keyframes skyLoyaltyShimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+.sky-loyalty__progress-labels {
+  display: flex;
+  justify-content: space-between;
+  margin-top: var(--sky-space-2);
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.6);
+  font-weight: 600;
+}
+
+.sky-loyalty__hero-actions {
+  margin-top: var(--sky-space-3);
+}
+
+/* ===== Tiers Section ===== */
+.sky-loyalty__tiers {
+  background: var(--sky-bg);
+}
+
+.sky-loyalty__tiers-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--sky-space-5);
+}
+
+.sky-loyalty__tier-card {
+  border-radius: var(--sky-radius-xl);
+  overflow: hidden;
+  cursor: default;
+  transition: all var(--sky-transition);
+}
+
+.sky-loyalty__tier-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--sky-shadow-lg);
+}
+
+.sky-loyalty__tier-card--current {
+  transform: translateY(-4px) scale(1.02);
+  animation: skyLoyaltyPulse 3s ease-in-out infinite;
+}
+
+@keyframes skyLoyaltyPulse {
+  0%, 100% { box-shadow: 0 0 20px rgba(212, 168, 67, 0.2); }
+  50% { box-shadow: 0 0 40px rgba(212, 168, 67, 0.4); }
+}
+
+.sky-loyalty__tier-card--current:hover {
+  transform: translateY(-8px) scale(1.02);
+}
+
+.sky-loyalty__tier-card--locked {
+  opacity: 0.7;
+}
+
+.sky-loyalty__tier-card-header {
+  padding: var(--sky-space-5);
+  text-align: center;
+}
+
+.sky-loyalty__tier-card-icon {
+  font-size: 2.5rem;
+  display: block;
+  margin-bottom: var(--sky-space-2);
+}
+
+.sky-loyalty__tier-card-header h3 {
+  font-weight: 800;
+}
+
+.sky-loyalty__tier-card-body {
+  padding: var(--sky-space-5);
+  position: relative;
+}
+
+.sky-loyalty__tier-card-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--sky-space-2);
+  margin-bottom: var(--sky-space-4);
+}
+
+.sky-loyalty__tier-card-stat {
+  text-align: center;
+  padding: var(--sky-space-2);
+  background: var(--sky-bg-secondary);
+  border-radius: var(--sky-radius-sm);
+}
+
+.sky-loyalty__tier-card-stat-value {
+  font-size: 1.25rem;
+  font-weight: 900;
+  color: var(--sky-primary);
+  display: block;
+}
+
+.sky-loyalty__tier-card-stat-label {
+  font-size: 0.7rem;
+  color: var(--sky-text-muted);
+  font-weight: 600;
+}
+
+.sky-loyalty__tier-card-benefits {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sky-space-2);
+  margin-bottom: var(--sky-space-4);
+}
+
+.sky-loyalty__tier-card-benefits li {
+  display: flex;
+  align-items: center;
+  gap: var(--sky-space-2);
+  font-size: 0.85rem;
+  color: var(--sky-text-secondary);
+}
+
+.sky-loyalty__benefit-check {
+  font-size: 0.75rem;
+  font-weight: 900;
+  color: var(--sky-success);
+  flex-shrink: 0;
+  width: 18px;
+  height: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(16, 185, 129, 0.1);
+  border-radius: 50%;
+}
+
+.sky-loyalty__tier-card-badge {
+  display: block;
+  text-align: center;
+  padding: 6px 12px;
+  background: var(--sky-gradient-warm);
+  color: #1A120B;
+  font-size: 0.75rem;
+  font-weight: 800;
+  border-radius: var(--sky-radius-full);
+  margin-top: var(--sky-space-2);
+}
+
+.sky-loyalty__tier-card-locked-label {
+  display: block;
+  text-align: center;
+  font-size: 0.8rem;
+  color: var(--sky-text-muted);
+  margin-top: var(--sky-space-2);
+}
+
+/* ===== Rewards Section ===== */
+.sky-loyalty__rewards {
+  background: var(--sky-bg-secondary);
+}
+
+.sky-loyalty__rewards-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--sky-space-5);
+}
+
+.sky-loyalty__reward-card {
+  padding: var(--sky-space-6);
+  text-align: center;
+  border-radius: var(--sky-radius-xl);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--sky-space-3);
+  transition: all var(--sky-transition);
+}
+
+.sky-loyalty__reward-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--sky-shadow-lg);
+}
+
+.sky-loyalty__reward-card--locked {
+  opacity: 0.6;
+}
+
+.sky-loyalty__reward-icon-wrap {
+  width: 72px;
+  height: 72px;
+  background: linear-gradient(135deg, rgba(212, 168, 67, 0.12), rgba(200, 16, 46, 0.08));
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: var(--sky-space-1);
+}
+
+.sky-loyalty__reward-icon {
+  font-size: 2rem;
+}
+
+.sky-loyalty__reward-badge {
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.sky-loyalty__reward-name {
+  font-size: 0.9375rem;
+  font-weight: 700;
+  color: var(--sky-text);
+  min-height: 2.5em;
+  display: flex;
+  align-items: center;
+}
+
+.sky-loyalty__reward-points {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.sky-loyalty__reward-points-icon {
+  font-size: 1rem;
+}
+
+.sky-loyalty__reward-points-value {
+  font-size: 1.125rem;
+  font-weight: 800;
+  color: var(--sky-accent-dark);
+}
+
+.sky-loyalty__reward-points-insufficient {
+  color: var(--sky-text-muted);
+}
+
+/* ===== History Section ===== */
+.sky-loyalty__history {
+  background: var(--sky-bg);
+}
+
+.sky-loyalty__history-card {
+  padding: 0;
+  border-radius: var(--sky-radius-xl);
+  overflow: hidden;
+}
+
+.sky-loyalty__history-empty {
+  text-align: center;
+  padding: var(--sky-space-16);
+  color: var(--sky-text-muted);
+}
+
+.sky-loyalty__history-empty span {
+  font-size: 3rem;
+  display: block;
+  margin-bottom: var(--sky-space-3);
+}
+
+.sky-loyalty__history-table {
+  width: 100%;
+}
+
+.sky-loyalty__history-header {
+  display: grid;
+  grid-template-columns: 120px 1fr 100px 100px;
+  gap: var(--sky-space-4);
+  padding: var(--sky-space-4) var(--sky-space-6);
+  background: var(--sky-bg-secondary);
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--sky-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.sky-loyalty__history-row {
+  display: grid;
+  grid-template-columns: 120px 1fr 100px 100px;
+  gap: var(--sky-space-4);
+  padding: var(--sky-space-4) var(--sky-space-6);
+  border-bottom: 1px solid var(--sky-border);
+  align-items: center;
+  transition: background var(--sky-transition-fast);
+}
+
+.sky-loyalty__history-row:last-child {
+  border-bottom: none;
+}
+
+.sky-loyalty__history-row:hover {
+  background: var(--sky-bg);
+}
+
+.sky-loyalty__history-date {
+  font-size: 0.85rem;
+  color: var(--sky-text-muted);
+  font-weight: 500;
+}
+
+.sky-loyalty__history-desc {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--sky-text);
+}
+
+.sky-loyalty__history-points {
+  font-size: 0.9375rem;
+  font-weight: 800;
+  text-align: end;
+}
+
+.sky-loyalty__history-points--earned {
+  color: var(--sky-success);
+}
+
+.sky-loyalty__history-points--redeemed {
+  color: var(--sky-danger);
+}
+
+/* ===== Partners Section ===== */
+.sky-loyalty__partners {
+  background: var(--sky-bg-secondary);
+}
+
+.sky-loyalty__partners-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--sky-space-5);
+}
+
+.sky-loyalty__partner-card {
+  padding: var(--sky-space-6);
+  text-align: center;
+  border-radius: var(--sky-radius-xl);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--sky-space-3);
+  transition: all var(--sky-transition);
+}
+
+.sky-loyalty__partner-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--sky-shadow-lg);
+}
+
+.sky-loyalty__partner-logo-wrap {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: var(--sky-space-1);
+}
+
+.sky-loyalty__partner-logo {
+  font-size: 2.25rem;
+}
+
+.sky-loyalty__partner-name {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--sky-text);
+}
+
+.sky-loyalty__partner-discount {
+  display: inline-block;
+  padding: 6px 20px;
+  border-radius: var(--sky-radius-full);
+  font-size: 0.85rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+}
+
+/* ===== Redeem Modal ===== */
+.sky-loyalty__modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(8px);
+  z-index: var(--sky-z-modal);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--sky-space-4);
+  animation: skyLoyaltyFadeIn 0.2s ease;
+}
+
+@keyframes skyLoyaltyFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.sky-loyalty__modal {
+  background: var(--sky-bg-card);
+  border-radius: var(--sky-radius-xl);
+  padding: var(--sky-space-8);
+  max-width: 420px;
+  width: 100%;
+  text-align: center;
+  box-shadow: var(--sky-shadow-xl);
+  animation: skyLoyaltyScaleIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes skyLoyaltyScaleIn {
+  from { transform: scale(0.9); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+.sky-loyalty__modal-icon {
+  font-size: 3rem;
+  margin-bottom: var(--sky-space-4);
+}
+
+.sky-loyalty__modal-desc {
+  color: var(--sky-text-secondary);
+  margin: var(--sky-space-3) 0 var(--sky-space-6);
+  font-size: 0.9375rem;
+}
+
+.sky-loyalty__modal-actions {
+  display: flex;
+  gap: var(--sky-space-3);
+  justify-content: center;
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 1024px) {
+  .sky-loyalty__tiers-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .sky-loyalty__rewards-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .sky-loyalty__partners-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .sky-loyalty__hero {
+    padding: var(--sky-space-16) 0 var(--sky-space-12);
+  }
+
+  .sky-loyalty__tier-badge {
+    flex-direction: column;
+    text-align: center;
+    padding: var(--sky-space-4) var(--sky-space-6);
+  }
+
+  .sky-loyalty__tier-info {
+    text-align: center;
+  }
+
+  .sky-loyalty__tiers-grid {
+    grid-template-columns: 1fr;
+    gap: var(--sky-space-4);
+  }
+
+  .sky-loyalty__rewards-grid {
+    grid-template-columns: 1fr;
+    gap: var(--sky-space-4);
+  }
+
+  .sky-loyalty__partners-grid {
+    grid-template-columns: 1fr;
+    gap: var(--sky-space-4);
+  }
+
+  .sky-loyalty__history-header,
+  .sky-loyalty__history-row {
+    grid-template-columns: 90px 1fr 70px 80px;
+    gap: var(--sky-space-2);
+    padding: var(--sky-space-3) var(--sky-space-4);
+    font-size: 0.8rem;
+  }
+
+  .sky-loyalty__modal {
+    padding: var(--sky-space-6);
+  }
+}

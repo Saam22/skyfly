@@ -1,4 +1,5 @@
 import { createContext, useContext, useState, useEffect, useCallback } from 'react';
+import { LOYALTY_TIERS } from '../data/loyaltyData';
 
 const BookingContext = createContext(null);
 
@@ -7,6 +8,8 @@ const TRIPS_KEY = 'skyfly_trips';
 const USER_KEY = 'skyfly_user';
 const SAVED_PASSENGERS_KEY = 'skyfly_saved_passengers';
 const WISHLIST_KEY = 'skyfly_wishlist';
+const LOYALTY_KEY = 'skyfly_loyalty';
+const CONTACT_KEY = 'skyfly_contact';
 
 export function BookingProvider({ children }) {
   const [theme, setTheme] = useState(() => localStorage.getItem('skyfly_theme') || 'light');
@@ -19,6 +22,11 @@ export function BookingProvider({ children }) {
 
   const [savedPassengers, setSavedPassengers] = useState(() => {
     try { return JSON.parse(localStorage.getItem(SAVED_PASSENGERS_KEY)) || []; }
+    catch { return []; }
+  });
+
+  const [savedPassports, setSavedPassports] = useState(() => {
+    try { return JSON.parse(localStorage.getItem('skyfly_passports')) || []; }
     catch { return []; }
   });
 
@@ -54,6 +62,21 @@ export function BookingProvider({ children }) {
     catch { return sampleTrips(); }
   });
 
+  const [loyalty, setLoyalty] = useState(() => {
+    try { return JSON.parse(localStorage.getItem(LOYALTY_KEY)) || { points: 4200, tier: 'bronze', history: [] }; }
+    catch { return { points: 4200, tier: 'bronze', history: [] }; }
+  });
+
+  const [adminMode, setAdminMode] = useState(() => {
+    try { return JSON.parse(localStorage.getItem('skyfly_admin')) || false; }
+    catch { return false; }
+  });
+
+  const [contactMessages, setContactMessages] = useState(() => {
+    try { return JSON.parse(localStorage.getItem(CONTACT_KEY)) || []; }
+    catch { return []; }
+  });
+
   const [notifications, setNotifications] = useState([]);
 
   // Persist
@@ -61,7 +84,11 @@ export function BookingProvider({ children }) {
   useEffect(() => { localStorage.setItem(TRIPS_KEY, JSON.stringify(trips)); }, [trips]);
   useEffect(() => { localStorage.setItem(USER_KEY, JSON.stringify(user)); }, [user]);
   useEffect(() => { localStorage.setItem(SAVED_PASSENGERS_KEY, JSON.stringify(savedPassengers)); }, [savedPassengers]);
+  useEffect(() => { localStorage.setItem('skyfly_passports', JSON.stringify(savedPassports)); }, [savedPassports]);
   useEffect(() => { localStorage.setItem(WISHLIST_KEY, JSON.stringify(wishlist)); }, [wishlist]);
+  useEffect(() => { localStorage.setItem(LOYALTY_KEY, JSON.stringify(loyalty)); }, [loyalty]);
+  useEffect(() => { localStorage.setItem('skyfly_admin', JSON.stringify(adminMode)); }, [adminMode]);
+  useEffect(() => { localStorage.setItem(CONTACT_KEY, JSON.stringify(contactMessages)); }, [contactMessages]);
 
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme);
@@ -75,6 +102,7 @@ export function BookingProvider({ children }) {
   const toggleLang = () => setLang(l => l === 'ar' ? 'en' : 'ar');
 
   // ---- Auth ----
+  // eslint-disable-next-line no-unused-vars
   const login = (email, password) => {
     const mockUser = { id: 'USR001', name: 'محمد أحمد', email, phone: '+201234567890', avatar: null, memberSince: '2025-01-15' };
     setUser(mockUser);
@@ -175,16 +203,71 @@ export function BookingProvider({ children }) {
     setBooking({ flight: null, returnFlight: null, passengers: [], selectedSeats: [], extras: {}, totalPrice: 0, bookingRef: null, status: null });
   };
 
+  // ---- Loyalty ----
+  const getLoyaltyTier = () => {
+    const sorted = [...LOYALTY_TIERS].sort((a, b) => b.minPoints - a.minPoints);
+    return sorted.find(t => loyalty.points >= t.minPoints) || LOYALTY_TIERS[0];
+  };
+
+  const addLoyaltyPoints = (points, desc, descEn) => {
+    setLoyalty(prev => ({
+      points: prev.points + points,
+      tier: getLoyaltyTier().id,
+      history: [{ id: 'lh' + Date.now(), date: new Date().toISOString().split('T')[0], description: desc, descriptionEn: descEn, points, type: 'earned' }, ...prev.history],
+    }));
+  };
+
+  const redeemPoints = (points, desc, descEn) => {
+    if (loyalty.points < points) return false;
+    setLoyalty(prev => ({
+      ...prev,
+      points: prev.points - points,
+      history: [{ id: 'lh' + Date.now(), date: new Date().toISOString().split('T')[0], description: desc, descriptionEn: descEn, points: -points, type: 'redeemed' }, ...prev.history],
+    }));
+    addNotification('success', 'تم الاستبدال', `تم استبدال ${points} نقطة بنجاح`);
+    return true;
+  };
+
+  // ---- Admin ----
+  const toggleAdminMode = () => setAdminMode(p => !p);
+
+  // ---- Contact ----
+  const submitContact = (data) => {
+    const msg = { id: 'msg' + Date.now(), ...data, date: new Date().toISOString(), status: 'new' };
+    setContactMessages(prev => [msg, ...prev]);
+    addNotification('success', 'تم الإرسال', 'شكراً لتواصلك! سنرد عليك في أقرب وقت');
+    return msg;
+  };
+
+  // ---- Saved Passports ----
+  const addSavedPassport = (p) => {
+    setSavedPassports(prev => [...prev, { ...p, id: 'PSP' + Date.now() }]);
+    addNotification('success', 'تم الحفظ', 'تم حفظ جواز السفر');
+  };
+  const removeSavedPassport = (id) => setSavedPassports(prev => prev.filter(p => p.id !== id));
+
+  // ---- Confirm Booking with loyalty ----
+  const confirmBookingWithLoyalty = () => {
+    const ref = confirmBooking();
+    const pts = Math.floor((booking.totalPrice || 0) / 10);
+    if (pts > 0) addLoyaltyPoints(pts, `رحلة ${ref}`, `Trip ${ref}`);
+    return ref;
+  };
+
   return (
     <BookingContext.Provider value={{
       theme, toggleTheme, lang, toggleLang,
       searchParams, setSearchParams,
       user, login, signup, logout, updateProfile,
       savedPassengers, addSavedPassenger, removeSavedPassenger,
+      savedPassports, addSavedPassport, removeSavedPassport,
       wishlist, toggleWishlist, isInWishlist,
       notifications, dismissNotification,
-      booking, selectFlight, setPassengers, setSelectedSeats, setExtras, confirmBooking, clearBooking,
+      booking, selectFlight, setPassengers, setSelectedSeats, setExtras, confirmBooking, confirmBookingWithLoyalty, clearBooking,
       trips, cancelTrip, modifyTrip,
+      loyalty, getLoyaltyTier, addLoyaltyPoints, redeemPoints,
+      adminMode, toggleAdminMode,
+      contactMessages, submitContact,
     }}>
       {children}
     </BookingContext.Provider>

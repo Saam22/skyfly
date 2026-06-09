@@ -5,10 +5,11 @@ import AuthModal from '../AuthModal/AuthModal';
 import './Navbar.css';
 
 export default function Navbar() {
-  const { theme, toggleTheme, lang, toggleLang, trips, user } = useBooking();
+  const { theme, toggleTheme, lang, toggleLang, trips, user, adminMode, toggleAdminMode } = useBooking();
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [showAuth, setShowAuth] = useState(false);
+  const [showMegaMenu, setShowMegaMenu] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
   const navRef = useRef(null);
@@ -23,22 +24,35 @@ export default function Navbar() {
   }, []);
 
   useEffect(() => {
-    setMenuOpen(false);
+    if (menuOpen) setMenuOpen(false);
+    if (showMegaMenu) setShowMegaMenu(false);
   }, [location]);
 
-  const navLinks = lang === 'ar'
+  const baseLinks = lang === 'ar'
     ? [
         { label: 'الرئيسية', path: '/' },
         { label: 'البحث', path: '/search' },
+        { label: 'العروض', path: '/offers' },
         { label: 'رحلاتي', path: '/my-trips', badge: confirmedTrips },
         ...(user ? [{ label: 'حسابي', path: '/account' }] : []),
+        { label: 'المدونة', path: '/blog' },
+        { label: 'الدعم', path: '/support' },
+        { label: 'برنامج الولاء', path: '/loyalty' },
       ]
     : [
         { label: 'Home', path: '/' },
         { label: 'Search', path: '/search' },
+        { label: 'Offers', path: '/offers' },
         { label: 'My Trips', path: '/my-trips', badge: confirmedTrips },
         ...(user ? [{ label: 'Account', path: '/account' }] : []),
+        { label: 'Blog', path: '/blog' },
+        { label: 'Support', path: '/support' },
+        { label: 'Loyalty', path: '/loyalty' },
       ];
+
+  if (adminMode) {
+    baseLinks.push({ label: lang === 'ar' ? 'لوحة التحكم' : 'Admin', path: '/admin' });
+  }
 
   const egyptianFlag = '🇪🇬';
 
@@ -57,7 +71,7 @@ export default function Navbar() {
         </Link>
 
         <ul className="sky-navbar__links sky-hide-mobile" role="list">
-          {navLinks.map(link => (
+          {baseLinks.slice(0, 5).map(link => (
             <li key={link.path}>
               <Link
                 to={link.path}
@@ -71,6 +85,29 @@ export default function Navbar() {
               </Link>
             </li>
           ))}
+          <li className="sky-navbar__mega-trigger">
+            <button
+              className={`sky-navbar__link ${showMegaMenu ? 'sky-navbar__link--active' : ''}`}
+              onClick={() => setShowMegaMenu(p => !p)}
+              onMouseEnter={() => setShowMegaMenu(true)}
+            >
+              {lang === 'ar' ? 'المزيد ▾' : 'More ▾'}
+            </button>
+            {showMegaMenu && (
+              <div className="sky-navbar__mega" onMouseLeave={() => setShowMegaMenu(false)}>
+                {baseLinks.slice(5).map(link => (
+                  <Link key={link.path} to={link.path} className="sky-navbar__mega-link">
+                    {link.label}
+                    {link.badge > 0 && <span className="sky-navbar__badge">{link.badge}</span>}
+                  </Link>
+                ))}
+                <div className="sky-navbar__mega-divider" />
+                <Link to="/services" className="sky-navbar__mega-link sky-navbar__mega-link--special">
+                  {lang === 'ar' ? '✨ خدمات إضافية (فنادق، سيارات، تأمين)' : '✨ Extra Services (Hotels, Cars, Insurance)'}
+                </Link>
+              </div>
+            )}
+          </li>
         </ul>
 
         <div className="sky-navbar__actions">
@@ -93,6 +130,16 @@ export default function Navbar() {
             aria-label="Toggle theme"
           >
             {theme === 'dark' ? '☀️' : '🌙'}
+          </button>
+
+          <button
+            id="nav-admin-toggle"
+            className={`sky-navbar__action-btn ${adminMode ? 'sky-navbar__action-btn--active' : ''}`}
+            onClick={() => { toggleAdminMode(); if (!adminMode) navigate('/admin'); }}
+            title={lang === 'ar' ? 'لوحة التحكم' : 'Admin Dashboard'}
+            aria-label="Admin dashboard"
+          >
+            🔧
           </button>
 
           {user ? (
@@ -129,7 +176,7 @@ export default function Navbar() {
 
       <div className={`sky-navbar__mobile-menu ${menuOpen ? 'sky-navbar__mobile-menu--open' : ''}`}>
         <ul role="list">
-          {navLinks.map(link => (
+          {baseLinks.map(link => (
             <li key={link.path}>
               <Link
                 to={link.path}

@@ -22,9 +22,9 @@ const FEATURES = [
 ];
 
 const OFFERS = [
-  { title: 'رحلات البحر الأحمر', titleEn: 'Red Sea Trips', desc: 'خصم حتى 45% على رحلات الغردقة وشرم الشيخ', descEn: 'Up to 45% off on Hurghada & Sharm flights', discount: '45%', color: '#C8102E', bg: 'linear-gradient(135deg, rgba(0,0,0,0.45), rgba(0,0,0,0.25))', emoji: '🏖️', image: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800&q=80' },
-  { title: 'سياحة النيل', titleEn: 'Nile Tourism', desc: 'عروض خاصة للأقصر وأسوان بأسعار لا تقاوم', descEn: 'Special deals for Luxor & Aswan', discount: '35%', color: '#D4A843', bg: 'linear-gradient(135deg, rgba(0,0,0,0.4), rgba(0,0,0,0.2))', emoji: '🏛️', image: 'https://images.unsplash.com/photo-1568322445389-f64ac2515020?w=800&q=80' },
-  { title: 'رحلات الخليج', titleEn: 'Gulf Flights', desc: 'أسعار مخفضة للسفر من مصر إلى الإمارات وقطر', descEn: 'Discounted fares from Egypt to UAE & Qatar', discount: '30%', color: '#1A3C6E', bg: 'linear-gradient(135deg, rgba(0,0,0,0.4), rgba(0,0,0,0.2))', emoji: '🌆', image: 'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=800&q=80' },
+  { title: 'رحلات البحر الأحمر', titleEn: 'Red Sea Trips', desc: 'خصم حتى 45% على رحلات الغردقة وشرم الشيخ', descEn: 'Up to 45% off on Hurghada & Sharm flights', discount: '45%', color: '#C8102E', bg: 'linear-gradient(135deg, rgba(0,0,0,0.45), rgba(0,0,0,0.25))', emoji: '🏖️', image: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=400&q=60' },
+  { title: 'سياحة النيل', titleEn: 'Nile Tourism', desc: 'عروض خاصة للأقصر وأسوان بأسعار لا تقاوم', descEn: 'Special deals for Luxor & Aswan', discount: '35%', color: '#D4A843', bg: 'linear-gradient(135deg, rgba(0,0,0,0.4), rgba(0,0,0,0.2))', emoji: '🏛️', image: 'https://images.unsplash.com/photo-1568322445389-f64ac2515020?w=400&q=60' },
+  { title: 'رحلات الخليج', titleEn: 'Gulf Flights', desc: 'أسعار مخفضة للسفر من مصر إلى الإمارات وقطر', descEn: 'Discounted fares from Egypt to UAE & Qatar', discount: '30%', color: '#1A3C6E', bg: 'linear-gradient(135deg, rgba(0,0,0,0.4), rgba(0,0,0,0.2))', emoji: '🌆', image: 'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=400&q=60' },
 ];
 
 const AIRLINES_STRIP = ['🇪🇬 مصر للطيران', '🇪🇬 Air Cairo', '🇪🇬 Nile Air', '🇦🇪 طيران الإمارات', '🇶🇦 الخطوط القطرية', '🇹🇷 الخطوط التركية', '🇦🇪 العربية للطيران', '🇯🇴 الملكية الأردنية'];
