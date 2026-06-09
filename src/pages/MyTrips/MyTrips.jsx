@@ -9,7 +9,6 @@ export default function MyTrips() {
   const ar = lang === 'ar';
 
   const [activeTab, setActiveTab] = useState('upcoming');
-  const [selectedTrip, setSelectedTrip] = useState(null);
   const [cancelConfirm, setCancelConfirm] = useState(null);
   const [showBoardingPass, setShowBoardingPass] = useState(null);
   const [searchQuery, setSearchQuery] = useState('');
@@ -284,52 +283,179 @@ export default function MyTrips() {
       )}
 
       {/* Boarding Pass Modal */}
-      {showBoardingPass && (
-        <div className="sky-modal-overlay" onClick={() => setShowBoardingPass(null)}>
-          <div className="sky-modal sky-boarding-pass" onClick={e => e.stopPropagation()}>
-            <div className="sky-boarding-pass__top">
-              <div className="sky-boarding-pass__logo">✈ SkyFly</div>
-              <span className="sky-badge sky-badge-success">{ar ? 'مؤكدة' : 'Confirmed'}</span>
-            </div>
-            <div className="sky-boarding-pass__route">
-              <div className="sky-boarding-pass__city">
-                <strong>{showBoardingPass.flight?.from?.code}</strong>
-                <small>{showBoardingPass.flight?.from?.city}</small>
-                <span>{showBoardingPass.flight?.from?.time}</span>
+      {showBoardingPass && (() => {
+        const bp = showBoardingPass;
+        const paxName = bp.passengers?.[0]?.name || [bp.passengers?.[0]?.firstName, bp.passengers?.[0]?.lastName].filter(Boolean).join(' ') || '—';
+        const paxPassport = bp.passengers?.[0]?.passport || '—';
+        const paxNationality = bp.passengers?.[0]?.nationality || '—';
+        const airline = bp.flight?.airlineCode || 'SK';
+        const flightNum = bp.flight?.flightNumber || `${airline} ${bp.bookingRef?.slice(-4) || '000'}`;
+        const gate = bp.flight?.gate || 'A1';
+        const seat = bp.selectedSeats?.[0] || '—';
+        const barcodeData = bp.bookingRef ? bp.bookingRef.split('').map(c => c.charCodeAt(0)) : [];
+        const boardingTime = bp.flight?.time ? (() => {
+          const [h, m] = bp.flight.time.split(':').map(Number);
+          const bt = `${String(Math.max(0, h - 1)).padStart(2, '0')}:${String(m).padStart(2, '0')}`;
+          return bt;
+        })() : '—';
+        const date = bp.flight?.date || '—';
+        const dateFormatted = date !== '—' ? new Date(date + 'T00:00:00').toLocaleDateString(ar ? 'ar-SA' : 'en-US', { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' }) : '—';
+        const terminal = bp.flight?.terminal || '1';
+
+        return (
+          <div className="sky-modal-overlay" onClick={() => setShowBoardingPass(null)}>
+            <div className="sky-modal sky-boarding-pass" onClick={e => e.stopPropagation()}>
+              {/* Tear-off strip */}
+              <div className="sky-boarding-pass__strip">
+                <div className="sky-boarding-pass__strip-hole" />
+                <div className="sky-boarding-pass__strip-hole" />
+                <div className="sky-boarding-pass__strip-text">{bp.bookingRef}</div>
+                <div className="sky-boarding-pass__strip-hole" />
+                <div className="sky-boarding-pass__strip-hole" />
               </div>
-              <div className="sky-boarding-pass__divider">✈ ─────</div>
-              <div className="sky-boarding-pass__city sky-boarding-pass__city--right">
-                <strong>{showBoardingPass.flight?.to?.code}</strong>
-                <small>{showBoardingPass.flight?.to?.city}</small>
-                <span>{showBoardingPass.flight?.to?.time}</span>
-              </div>
-            </div>
-            <div className="sky-boarding-pass__details">
-              {[
-                { label: ar ? 'المسافر' : 'Passenger', val: showBoardingPass.passengers?.[0]?.name || showBoardingPass.passengers?.[0]?.firstName + ' ' + (showBoardingPass.passengers?.[0]?.lastName || '') || '—' },
-                { label: ar ? 'رقم الرحلة' : 'Flight', val: showBoardingPass.flight?.flightNumber },
-                { label: ar ? 'التاريخ' : 'Date', val: showBoardingPass.flight?.date },
-                { label: ar ? 'المقعد' : 'Seat', val: showBoardingPass.selectedSeats?.[0] || '—' },
-                { label: ar ? 'الحجز' : 'Booking', val: showBoardingPass.bookingRef },
-              ].map(d => (
-                <div key={d.label} className="sky-boarding-pass__detail-item">
-                  <small>{d.label}</small>
-                  <strong>{d.val}</strong>
+
+              {/* Header with airline */}
+              <div className="sky-boarding-pass__header">
+                <div className="sky-boarding-pass__airline">
+                  <span className="sky-boarding-pass__airline-icon" style={{ background: bp.flight?.airlineColor || 'var(--sky-primary)' }}>
+                    {airline}
+                  </span>
+                  <div>
+                    <strong className="sky-boarding-pass__airline-name">{bp.flight?.airline || 'SkyFly Egypt'}</strong>
+                    <small className="sky-text-muted">{ar ? 'بطاقة صعود' : 'BOARDING PASS'}</small>
+                  </div>
                 </div>
-              ))}
+                <span className="sky-badge sky-badge-success">{ar ? 'صعود' : 'BOARDING'}</span>
+              </div>
+
+              {/* Route - big display */}
+              <div className="sky-boarding-pass__route">
+                <div className="sky-boarding-pass__city">
+                  <strong>{bp.flight?.from?.code || '—'}</strong>
+                  <small>{bp.flight?.from?.city || ''}</small>
+                </div>
+                <div className="sky-boarding-pass__flight-path">
+                  <div className="sky-boarding-pass__flight-line" />
+                  <span className="sky-boarding-pass__flight-icon">✈</span>
+                </div>
+                <div className="sky-boarding-pass__city">
+                  <strong>{bp.flight?.to?.code || '—'}</strong>
+                  <small>{bp.flight?.to?.city || ''}</small>
+                </div>
+              </div>
+
+              {/* Flight info bar */}
+              <div className="sky-boarding-pass__info-bar">
+                <div className="sky-boarding-pass__info-item">
+                  <small>{ar ? 'الرحلة' : 'FLIGHT'}</small>
+                  <strong>{flightNum}</strong>
+                </div>
+                <div className="sky-boarding-pass__info-item">
+                  <small>{ar ? 'التاريخ' : 'DATE'}</small>
+                  <strong>{dateFormatted}</strong>
+                </div>
+                <div className="sky-boarding-pass__info-item">
+                  <small>{ar ? 'الصعود' : 'BOARD'}</small>
+                  <strong>{boardingTime}</strong>
+                </div>
+                <div className="sky-boarding-pass__info-item">
+                  <small>{ar ? 'البوابة' : 'GATE'}</small>
+                  <strong>{gate}</strong>
+                </div>
+              </div>
+
+              {/* Divider */}
+              <div className="sky-boarding-pass__line"><span>{ar ? 'بطاقة الصعود' : 'BOARDING PASS'}</span></div>
+
+              {/* Passenger details */}
+              <div className="sky-boarding-pass__details">
+                <div className="sky-boarding-pass__detail-full">
+                  <small>{ar ? 'المسافر / PASSENGER' : 'PASSENGER'}</small>
+                  <strong>{paxName}</strong>
+                </div>
+                <div className="sky-boarding-pass__detail-row">
+                  <div className="sky-boarding-pass__detail-item">
+                    <small>{ar ? 'المقعد' : 'SEAT'}</small>
+                    <strong className="sky-boarding-pass__seat">{seat}</strong>
+                  </div>
+                  <div className="sky-boarding-pass__detail-item">
+                    <small>{ar ? 'الدرجة' : 'CLASS'}</small>
+                    <strong>{bp.flight?.class || (ar ? 'اقتصادية' : 'ECONOMY')}</strong>
+                  </div>
+                  <div className="sky-boarding-pass__detail-item">
+                    <small>{ar ? 'الصالة' : 'TERM'}</small>
+                    <strong>{terminal}</strong>
+                  </div>
+                </div>
+                <div className="sky-boarding-pass__detail-row">
+                  <div className="sky-boarding-pass__detail-item">
+                    <small>{ar ? 'جواز السفر' : 'PASSPORT'}</small>
+                    <strong>{paxPassport}</strong>
+                  </div>
+                  <div className="sky-boarding-pass__detail-item">
+                    <small>{ar ? 'الجنسية' : 'NATIONALITY'}</small>
+                    <strong>{paxNationality}</strong>
+                  </div>
+                  <div className="sky-boarding-pass__detail-item">
+                    <small>{ar ? 'الحجز' : 'BOOKING'}</small>
+                    <strong className="sky-text-primary">{bp.bookingRef}</strong>
+                  </div>
+                </div>
+              </div>
+
+              {/* Barcode */}
+              <div className="sky-boarding-pass__barcode-wrap">
+                <div className="sky-boarding-pass__barcode">
+                  <div className="sky-boarding-pass__barcode-bars">
+                    {barcodeData.map((code, i) => (
+                      <span
+                        key={i}
+                        className="sky-boarding-pass__bar"
+                        style={{
+                          height: `${Math.min(100, 40 + (code % 60))}%`,
+                          width: `${Math.max(2, 2 + (code % 4))}px`,
+                          background: i % 2 === 0 ? 'var(--sky-text)' : 'var(--sky-text-muted)',
+                        }}
+                      />
+                    ))}
+                    {/* Extra random bars for realistic look */}
+                    {Array.from({ length: 40 }, (_, i) => (
+                      <span
+                        key={`x${i}`}
+                        className="sky-boarding-pass__bar"
+                        style={{
+                          height: `${30 + ((i * 7 + 13) % 70)}%`,
+                          width: `${1 + ((i * 3 + 5) % 4)}px`,
+                          background: (i + Math.floor(i / 2)) % 3 === 0 ? 'var(--sky-text)' : 'var(--sky-text-muted)',
+                        }}
+                      />
+                    ))}
+                  </div>
+                </div>
+                <div className="sky-boarding-pass__barcode-footer">
+                  <span className="sky-boarding-pass__barcode-ref">{bp.bookingRef}</span>
+                  <small className="sky-text-muted">{ar ? 'رقم الحجز' : 'BOOKING REF'}</small>
+                </div>
+              </div>
+
+              {/* Actions */}
+              <div className="sky-boarding-pass__actions">
+                <button className="sky-btn sky-btn-primary sky-btn-full" onClick={() => window.print()}>
+                  🖨️ {ar ? 'طباعة' : 'Print'}
+                </button>
+                <button className="sky-btn sky-btn-ghost sky-btn-full" onClick={() => setShowBoardingPass(null)}>
+                  {ar ? 'إغلاق' : 'Close'}
+                </button>
+              </div>
+
+              {/* Footer */}
+              <div className="sky-boarding-pass__footer">
+                <p>{ar ? ' SkyFly مصر - أول منصة حجز طيران مصرية' : ' SkyFly Egypt - First Egyptian Booking Platform'}</p>
+              </div>
             </div>
-            <div className="sky-boarding-pass__barcode">
-              ▮▯▮▮▯▮▯▯▮▯▮▮▯▮▯▮▯▮▯▯▮
-            </div>
-            <button className="sky-btn sky-btn-primary sky-btn-full" onClick={() => window.print()}>
-              🖨️ {ar ? 'طباعة / تنزيل' : 'Print / Download'}
-            </button>
-            <button className="sky-btn sky-btn-ghost sky-btn-full" onClick={() => setShowBoardingPass(null)}>
-              {ar ? 'إغلاق' : 'Close'}
-            </button>
           </div>
-        </div>
-      )}
+        );
+      })()}
     </div>
   );
 }
